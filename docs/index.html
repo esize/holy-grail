@@ -1,30 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-</head>
-<body>
-  <div id="app"></div>
-  <script>
-    window.$docsify = {
-      name: '',
-      repo: '',
-    }
-  </script>
+  <head>
+    <meta charset="UTF-8" />
+    <title>The Holy Grail</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="Description" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+    />
 
-  <!--  Edit on GitHub Plugin  -->
+    <!-- Theme: Simple (light + dark) -->
+    <link
+      rel="stylesheet"
+      media="(prefers-color-scheme: light)"
+      href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css"
+    />
+    <link
+      rel="stylesheet"
+      media="(prefers-color-scheme: dark)"
+      href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css"
+    />
 
+    <!-- Custom Styles -->
+    <style>
+      :root {
+        /* --theme-hue: 325; */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
 
-  <!--  Copy Code Plugin  -->
+    <script>
+      window.$docsify = {
+        name: 'The Holy Grail',
+        repo: 'esize/holy-grail',
+        auto2top: true,
+        routerMode: 'history',
+        loadSidebar: true,
+        autoHeader: true,
 
-  <script src="https://unpkg.com/docsify-copy-code@2"></script>
+        plugins: [
+          EditOnGithubPlugin.create(
+            'https://github.com/esize/holy-grail/blob/main/docs/',
 
-  <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-</body>
+            null,
+            'Edit on GitHub'
+          ),
+        ],
+        themeable: {
+          readyTransition: true, // default
+          responsiveTables: true, // default
+        },
+        copyCode: {
+          buttonText: 'Copy to clipboard',
+          errorText: 'Error',
+          successText: 'Copied',
+        },
+      };
+    </script>
+
+    <!-- Docsify v4 -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+
+    <!--  External Script Plugin  -->
+    <script src="https://unpkg.com/docsify/lib/plugins/external-script.min.js"></script>
+
+    <!--  Emoji  -->
+    <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+
+    <!--  Zoom Image  -->
+    <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+
+    <!--  Styling for Inline Code Plugin  -->
+    <script src="https://unpkg.com/@rakutentech/docsify-code-inline/dist/index.min.js"></script>
+
+    <!--  Wikilink Plugin  -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify-wikilink@1"></script>
+
+    <!--  Edit on GitHub Plugin  -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify-edit-on-github"></script>
+
+    <!--  Copy Code Plugin  -->
+
+    <script src="https://unpkg.com/docsify-copy-code@2"></script>
+
+    <!--  Docsify Themeable  -->
+    <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
+
+    <!--  Search Plugin  -->
+    <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+  </body>
 </html>
