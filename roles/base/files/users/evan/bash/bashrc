@@ -1,6 +1,3 @@
-# source bash prompt
-source ~/.bash/bash_prompt
-
 # Source bash aliases
 source ~/.bash/bash_aliases
 
@@ -10,6 +7,7 @@ source ~/.bash/bash_functions
 # Env
 export TERM=xterm-256color
 
+eval "$(oh-my-posh --init --shell bash --config ~/omp.json)"
 
 # Don't add duplicate lines or lines beginning with a space to the history
 HISTCONTROL=ignoreboth

@@ -65,13 +65,13 @@
   with_items:
     - { src: 'bash/bash_aliases', dest: '.bash/bash_aliases' }
     - { src: 'bash/bash_profile', dest: '.bash_profile' }
-    - { src: 'bash/bash_prompt', dest: '.bash/bash_prompt' }
     - { src: 'bash/bash_functions', dest: '.bash/bash_functions' }
     - { src: 'bash/bashrc', dest: '.bashrc' }
     - { src: 'bash/profile', dest: '.profile' }
     - { src: 'git/gitconfig', dest: '.gitconfig' }
     - { src: 'inputrc', dest: '.inputrc' }
     - { src: 'zsh/zshrc', dest: '.zshrc' }
+    - { src: 'omp.json', dest: 'omp.json' }
 
 - name: users | evan | copy individual zsh config files
   tags: dotfiles,evan,users,zsh
@@ -90,6 +90,5 @@
     - { src: 'history.zsh' }
     - { src: 'path.zsh' }
     - { src: 'plugins.zsh' }
-    - { src: 'prompt.zsh' }
     - { src: 'setopt.zsh' }
     - { src: 'theming.zsh' }
