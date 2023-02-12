@@ -1,0 +1,57 @@
+- name: users | root | ensure account is locked
+  user:
+    name: root
+    password_lock: yes
+
+- name: users | root | create config directories
+  file:
+    path: /root/{{ item.dir }}
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+  with_items:
+    - { dir: '.basg' }
+    - { dir: '.config' }
+    - { dir: '.zsh' }
+  tags: dotfiles
+
+- name: users | root | copy dotfiles
+  copy:
+    src: users/root/{{ item.src }}
+    dest: /root/{{ item.dest}}
+    owner: root
+    group: root
+    mode: 0600
+  with_items:
+    - { src: 'bash/bash_aliases', dest: '.bash/bash_aliases' }
+    - { src: 'bash/bash_profile', dest: '.bash_profile' }
+    - { src: 'bash/bash_prompt', dest: '.bash/bash_prompt' }
+    - { src: 'bash/bash_functions', dest: '.bash/bash_functions' }
+    - { src: 'bash/bashrc', dest: '.bashrc' }
+    - { src: 'bash/profile', dest: '.profile' }
+    - { src: 'git/gitconfig', dest: '.gitconfig' }
+    - { src: 'inputrc', dest: '.inputrc' }
+    - { src: 'zsh/zshrc', dest: '.zshrc' }
+  tags: dotfiles
+
+- name: users | root | copy individual zsh config files
+  tags: dotfiles,root,users,zsh
+  copy:
+    src: users/evan/zsh/{{ item.src }}
+    dest: /home/evan/.zsh/{{ item.src }}
+    owner: evan
+    group: evan
+    mode: 0600
+  with_items:
+    - { src: 'aliases.zsh' }
+    - { src: 'bindkey.zsh' }
+    - { src: 'completion.zsh' }
+    - { src: 'exports.zsh' }
+    - { src: 'functions.zsh' }
+    - { src: 'history.zsh' }
+    - { src: 'path.zsh' }
+    - { src: 'plugins.zsh' }
+    - { src: 'prompt.zsh' }
+    - { src: 'setopt.zsh' }
+    - { src: 'theming.zsh' }

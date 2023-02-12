@@ -1,0 +1,16 @@
+- name: users | ansible | add public key
+  tags: dotfiles,ansible,ssh,ssh-keys,users
+  authorized_key:
+    user: ansible
+    key: '{{ item }}'
+  with_file:
+    - users/ansible/ssh/ansible_id_ed25519.pub
+
+- name: users | ansible | add sudoers file
+  tags: settings,ansible,sudo,system,users
+  copy:
+    src: users/sudoers_ansible
+    dest: /etc/sudoers.d/ansible
+    owner: root
+    group: root
+    mode: 0440

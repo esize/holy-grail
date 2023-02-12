@@ -1,0 +1,95 @@
+- name: users | evan | create group
+  tags: groups,evan,users
+  group:
+    name: evan
+    state: present
+
+- name: users | evan | create user
+  tags: evan,sudo,users
+  user:
+    name: evan
+    group: evan
+    groups: adm,ansible,{{ sudo_group }}
+    state: present
+    comment: 'Evan Sizemore'
+    password: '{{ evan_passwd }}'
+    shell: /bin/bash
+
+- name: users | evan | evan | add sudoers file
+  tags: evan,settings,ansible,sudo,system,users
+  copy:
+    src: users/sudoers_evan
+    dest: /etc/sudoers.d/evan
+    owner: root
+    group: root
+    mode: 0440
+
+- name: users | evan | create .ssh directory
+  tags: dotfiles,evan,ssh,users
+  file:
+    path: '{{ item.dir }}'
+    state: directory
+    owner: evan
+    group: evan
+    mode: 0700
+  with_items:
+    - { dir: '/home/evan/.ssh' }
+
+- name: users | evan | add public key
+  tags: dotfiles,evan,ssh,ssh-keys,users
+  authorized_key:
+    user: evan
+    key: https://github.com/esize.keys
+
+- name: users | evan | create config directories
+  tags: dotfiles,evan,users,zsh
+  file:
+    path: /home/evan/{{ item.dir }}
+    state: directory
+    owner: evan
+    group: evan
+    mode: 0700
+  with_items:
+    - { dir: '.bash' }
+    - { dir: '.config' }
+    - { dir: '.zsh' }
+
+- name: users | evan | copy dotfiles
+  tags: dotfiles,users,evan,users,zsh
+  copy:
+    src: users/evan/{{ item.src }}
+    dest: /home/evan/{{ item.dest }}
+    owner: evan
+    group: evan
+    mode: 0600
+  with_items:
+    - { src: 'bash/bash_aliases', dest: '.bash/bash_aliases' }
+    - { src: 'bash/bash_profile', dest: '.bash_profile' }
+    - { src: 'bash/bash_prompt', dest: '.bash/bash_prompt' }
+    - { src: 'bash/bash_functions', dest: '.bash/bash_functions' }
+    - { src: 'bash/bashrc', dest: '.bashrc' }
+    - { src: 'bash/profile', dest: '.profile' }
+    - { src: 'git/gitconfig', dest: '.gitconfig' }
+    - { src: 'inputrc', dest: '.inputrc' }
+    - { src: 'zsh/zshrc', dest: '.zshrc' }
+
+- name: users | evan | copy individual zsh config files
+  tags: dotfiles,evan,users,zsh
+  copy:
+    src: users/evan/zsh/{{ item.src }}
+    dest: /home/evan/.zsh/{{ item.src }}
+    owner: evan
+    group: evan
+    mode: 0600
+  with_items:
+    - { src: 'aliases.zsh' }
+    - { src: 'bindkey.zsh' }
+    - { src: 'completion.zsh' }
+    - { src: 'exports.zsh' }
+    - { src: 'functions.zsh' }
+    - { src: 'history.zsh' }
+    - { src: 'path.zsh' }
+    - { src: 'plugins.zsh' }
+    - { src: 'prompt.zsh' }
+    - { src: 'setopt.zsh' }
+    - { src: 'theming.zsh' }
