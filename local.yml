@@ -6,18 +6,8 @@
       apt: update_cache=yes
       changed_when: False
 
-  tasks:
-    - name: users | evan | evan | add sudoers file
-      tags: evan,settings,sudo,system,users
-      copy:
-        src: sudoers_evan
-        dest: /etc/sudoers.d/evan
-        owner: root
-        group: root
-        mode: 0440
-    - name: users | evan | add public key
-      tags: dotfiles,evan,ssh,ssh-keys,users
-      authorized_key:
-        user: evan
-        key: https://github.com/esize.keys
-        state: present
+- hosts: all
+  tags: base
+  become: true
+  roles:
+    - base
