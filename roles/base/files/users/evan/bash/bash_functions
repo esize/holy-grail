@@ -20,7 +20,7 @@ cd () {
     command cd "$dir"  &&  ls "$dir"
 }
 
-mkdir () {
+mkdir() {
     local dir=$1
     command mkdir "$dir"  &&  cd "$dir"
 }
