@@ -132,6 +132,58 @@ apt dist-upgrade
 reboot
 ```
 
+## Remove Nag
+
+By default, Proxmox will nag you each time you open the web console to buy the enterprise product. To fix this, apply the following changes.
+
+```shell
+cd /usr/share/javascript/proxmox-widget-toolkit
+```
+
+First, we'll make a backup of the original JS file in case we want to revert our changes at a later time.
+
+```shell
+cp proxmoxlib.js proxmoxlib.js.bak
+```
+
+Now, we'll edit the file
+
+```shell
+nano proxmoxlib.js
+```
+
+Using nano, search for "No valid subscription"
+
+> To search within nano, you must be connected either directly to the machine or over SSH, not through the web console. Then, use the shortcut `Ctrl w`
+
+Find the section of code that looks like this:
+
+```js
+Ext.Msg.show({
+  title: gettext('No valid subscription'),
+```
+
+and update it to look like this:
+
+```js
+void({ //Ext.Msg.show({
+  title: gettext('No valid subscription'),
+```
+
+Then restart the Proxmox web service
+
+```shell
+systemctl restart pveproxy.service
+```
+
+## Install Darkmode Theme
+
+Before you get any real work done with Proxmox, you'll need to install dark mode. Lucky for you, there's a super easy one-liner!
+
+```shell
+bash <(curl -s https://raw.githubusercontent.com/Weilbyte/PVEDiscordDark/master/PVEDiscordDark.sh ) install
+```
+
 # Configuring Proxmox
 
 Further configuration is done via the Proxmox web interface. Point your browser to Port 8006 on the IP address given during installation (https://192.168.254.10:8006).
@@ -151,43 +203,49 @@ ssh root@192.168.254.10
 Download the Ubuntu Server image:
 
 ```shell
-wget https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
+wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+```
+
+Customize the image by adding the qemu-guest-agent package
+
+```shell
+sudo virt-customize -a jammy-server-cloudimg-amd64.img --firstboot-install "qemu-guest-agent,git,ansible"
 ```
 
 Create a new virtual machine
 
 ```shell
-qm create 8000 --memory 2048 --core 2 --name ubuntu-cloud --net0 virtio,bridge=vmbr0
+sudo qm create 8000 --memory 4096 --core 1 --name ubuntu-cloud --net0 virtio,bridge=vmbr0
 ```
 
 Import the downloaded Ubuntu disk to local-lvm storage
 
 ```shell
-qm importdisk 8000 focal-server-cloudimg-amd64.img local-lvm
+sudo qm importdisk 8000 jammy-server-cloudimg-amd64.img local-lvm
 ```
 
 Attach the new disk to the vm as a scsi drive on the scsi controller
 
 ```shell
-qm set 8000 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-8000-disk-0
+sudo qm set 8000 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-8000-disk-0
 ```
 
 Add cloud init drive
 
 ```shell
-qm set 8000 --ide2 local-lvm:cloudinit
+sudo qm set 8000 --ide2 local-lvm:cloudinit
 ```
 
 Make the cloud init drive bootable and restrict BIOS to boot from disk only
 
 ```shell
-qm set 8000 --boot c --bootdisk scsi0
+sudo qm set 8000 --boot c --bootdisk scsi0
 ```
 
 Add serial console
 
 ```shell
-qm set 8000 --serial0 socket --vga serial0
+sudo qm set 8000 --serial0 socket --vga serial0
 ```
 
 **Do not start your VM!**
@@ -195,15 +253,3 @@ qm set 8000 --serial0 socket --vga serial0
 ## Cloud Init Configuration
 
 Now, configure hardware and cloud init, then create a template and clone. If you want to expand your hard drive you can on this base image before creating a template or after you clone a new machine. I prefer to expand the hard drive after I clone a new machine based on need.
-
-Create template.
-
-```shell
-qm template 8000
-```
-
-Clone template.
-
-```shell
-qm clone 8000 135 --name yoshi --full
-```
