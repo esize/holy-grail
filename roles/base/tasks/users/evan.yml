@@ -9,7 +9,7 @@
   user:
     name: evan
     group: evan
-    groups: adm,ansible,sudo
+    groups: adm,sudo
     state: present
     comment: 'Evan Sizemore'
     shell: /bin/bash
