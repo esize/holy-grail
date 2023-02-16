@@ -20,6 +20,6 @@
 - name: install oh-my-posh
   get_url:
     url: https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64
-    dest: /usr/local/bin/oh-my-posh
+    dest: /home/evan/bin
     mode: u+rwx
     owner: evan
