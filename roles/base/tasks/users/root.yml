@@ -11,7 +11,7 @@
     group: root
     mode: 0700
   with_items:
-    - { dir: '.basg' }
+    - { dir: '.bash' }
     - { dir: '.config' }
     - { dir: '.zsh' }
   tags: dotfiles
