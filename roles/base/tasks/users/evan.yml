@@ -9,7 +9,7 @@
   user:
     name: evan
     group: evan
-    groups: adm,ansible,{{ sudo_group }}
+    groups: adm,ansible,sudo
     state: present
     comment: 'Evan Sizemore'
     password: '{{ evan_passwd }}'
