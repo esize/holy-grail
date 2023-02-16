@@ -48,6 +48,5 @@
     - { src: 'history.zsh' }
     - { src: 'path.zsh' }
     - { src: 'plugins.zsh' }
-    - { src: 'prompt.zsh' }
     - { src: 'setopt.zsh' }
     - { src: 'theming.zsh' }
