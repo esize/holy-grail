@@ -34,8 +34,7 @@
     mode: 0700
   with_items:
     - { dir: '/home/evan/.ssh' }
-
-- name: users | evan | add public key
+- name: users evan add public key
   tags: dotfiles,evan,ssh,ssh-keys,users
   authorized_key:
     user: evan
