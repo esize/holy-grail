@@ -34,10 +34,10 @@
 - name: users | root | copy individual zsh config files
   tags: dotfiles,root,users,zsh
   copy:
-    src: users/evan/zsh/{{ item.src }}
-    dest: /home/evan/.zsh/{{ item.src }}
-    owner: evan
-    group: evan
+    src: users/root/zsh/{{ item.src }}
+    dest: /home/root/.zsh/{{ item.src }}
+    owner: root
+    group: root
     mode: 0600
   with_items:
     - { src: 'aliases.zsh' }
