@@ -20,8 +20,9 @@ cd () {
     command cd "$dir"  &&  ls "$dir"
 }
 
-function mkdir {
-    command mkdir $1  &&  cd $1
+function mkdir
+{
+  command mkdir $1 && cd $1
 }
 
 extract () {
