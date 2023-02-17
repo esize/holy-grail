@@ -22,7 +22,7 @@ cd () {
 
 function mkdir
 {
-  command mkdir $1 && cd $1
+  command mkdir $1 && command cd $1
 }
 
 extract () {
