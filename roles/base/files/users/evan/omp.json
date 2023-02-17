@@ -22,7 +22,7 @@
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
           "foreground": "#e4e4e4",
-          "background": "#E95420",
+          "background": "{{if .OS 'ubuntu'}}#E95420{{else}}#E95420{{end}}",
           "template": " \uf07c {{ .Path }} {{ .OS }}",
           "properties": {
             "home_icon": "~",
