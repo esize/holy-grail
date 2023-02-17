@@ -22,7 +22,7 @@
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
           "foreground": "#e4e4e4",
-          "background": "#3465a4",
+          "background": "#E95420",
           "template": " \uf07c {{ .Path }} ",
           "properties": {
             "home_icon": "~",
