@@ -17,7 +17,7 @@ path() {
 
 cd () {
     local dir=$1
-    command cd "$dir"  &&  ls "$dir"
+    command cd "$dir"  &&  ls
 }
 
 function mkdir
