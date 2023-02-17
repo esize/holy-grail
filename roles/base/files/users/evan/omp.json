@@ -23,7 +23,7 @@
           "powerline_symbol": "\ue0b0",
           "foreground": "#e4e4e4",
           "background": "#E95420",
-          "template": " \uf07c {{ .Path }} ",
+          "template": " \uf07c {{ .Path }} {{ .OS }}",
           "properties": {
             "home_icon": "~",
             "style": "full"
