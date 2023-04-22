@@ -14,7 +14,7 @@
 
     # Ensure system is configured correctly
     - import_tasks: system/clock.yml
-    - import_tasks: system/cron.yml
+    # - import_tasks: system/cron.yml
     - import_tasks: system/locale.yml
     - import_tasks: system/logging.yml
     - import_tasks: system/openssh.yml
