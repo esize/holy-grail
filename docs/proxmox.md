@@ -89,33 +89,33 @@ ssh root@192.168.254.10
 To receive updates, edit `/etc/apt/sources.list`
 
 ```shell
-nano /etc/apt/sources.list
+nvim /etc/apt/sources.list
 ```
 
 Edit the file to look like this:
 
 ```sources.list
-deb http://ftp.debian.org/debian bullseye main contrib
+deb http://ftp.debian.org/debian bookworm main contrib
 
-deb http://ftp.debian.org/debian bullseye-updates main contrib
+deb http://ftp.debian.org/debian bookworm-updates main contrib
 
 # security updates
-deb http://security.debian.org/debian-security bullseye-security main contrib
+deb http://security.debian.org/debian-security bookworm-security main contrib
 
 # PVE pve-no-subscription repository provided by proxmox.com,
 # NOT recommended for production use
-deb http://download.proxmox.com/debian/pve bullseye pve-no-subscription
+deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
 
 ```
 
 Edit `/etc/apt/sources.list.d/pve-enterprise.list`
 
 ```shell
-nano /etc/apt/sources.list.d/pve-enterprise.list
+nvim /etc/apt/sources.list.d/pve-enterprise.list
 ```
 
 ```pve-enterprise.list
-# deb https://enterprise.proxmox.com/debian/pve buster pve-enterprise
+# deb https://enterprise.proxmox.com/debian/pve bookworm pve-enterprise
 ```
 
 ## Run Updates
@@ -149,12 +149,10 @@ cp proxmoxlib.js proxmoxlib.js.bak
 Now, we'll edit the file
 
 ```shell
-nano proxmoxlib.js
+nvim proxmoxlib.js
 ```
 
-Using nano, search for "No valid subscription"
-
-> To search within nano, you must be connected either directly to the machine or over SSH, not through the web console. Then, use the shortcut `Ctrl w`
+Using nvim, search for "No valid subscription"
 
 Find the section of code that looks like this:
 
@@ -200,6 +198,12 @@ SSH into your Proxmox server. Login as `root` using the password you setup durin
 ssh root@192.168.254.10
 ```
 
+Install the necessary tools for customizing virtual images
+
+```shell
+apt-get install libguestfs-tools
+```
+
 Download the Ubuntu Server image:
 
 ```shell
@@ -209,43 +213,43 @@ wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.i
 Customize the image by adding the qemu-guest-agent package
 
 ```shell
-sudo virt-customize -a jammy-server-cloudimg-amd64.img --firstboot-install "qemu-guest-agent,git,ansible"
+virt-customize -a jammy-server-cloudimg-amd64.img --firstboot-install "qemu-guest-agent,git,neovim"
 ```
 
 Create a new virtual machine
 
 ```shell
-sudo qm create 8000 --memory 4096 --core 1 --name ubuntu-cloud --net0 virtio,bridge=vmbr0
+qm create 8000 --memory 4096 --core 1 --name ubuntu-cloud --net0 virtio,bridge=vmbr0
 ```
 
 Import the downloaded Ubuntu disk to local-lvm storage
 
 ```shell
-sudo qm importdisk 8000 jammy-server-cloudimg-amd64.img local-lvm
+qm importdisk 8000 jammy-server-cloudimg-amd64.img local-lvm
 ```
 
 Attach the new disk to the vm as a scsi drive on the scsi controller
 
 ```shell
-sudo qm set 8000 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-8000-disk-0
+qm set 8000 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-8000-disk-0
 ```
 
 Add cloud init drive
 
 ```shell
-sudo qm set 8000 --ide2 local-lvm:cloudinit
+qm set 8000 --ide2 local-lvm:cloudinit
 ```
 
 Make the cloud init drive bootable and restrict BIOS to boot from disk only
 
 ```shell
-sudo qm set 8000 --boot c --bootdisk scsi0
+qm set 8000 --boot c --bootdisk scsi0
 ```
 
 Add serial console
 
 ```shell
-sudo qm set 8000 --serial0 socket --vga serial0
+qm set 8000 --serial0 socket --vga serial0
 ```
 
 **Do not start your VM!**
