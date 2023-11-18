@@ -1,0 +1,145 @@
+appConfig:
+  layout: vertical
+  iconSize: small
+  theme: deep-ocean
+  language: en
+pageInfo:
+  title: Start
+  description: ''
+  navLinks: []
+  footerText: ''
+sections:
+  - name: Start
+    widgets:
+      - type: clock
+        options:
+          label: Time
+          timeZone: America/New_York
+          format: en-US
+          hideSeconds: true
+          hideDate: false
+        id: 0_526_clock
+    filteredItems: []
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+  - name: Home Lab
+    items:
+      - &ref_0
+        title: pfSense
+        description: pfSense Router
+        icon: hl-pfsense
+        url: https://router.local.wool.homes
+        target: sametab
+        id: 0_696_pfsense
+      - &ref_1
+        title: Proxmox
+        description: Virtualization
+        icon: hl-proxmox-light
+        url: https://proxmox.local.wool.homes
+        target: sametab
+        id: 1_696_proxmox
+      - &ref_2
+        title: AdGuard Home
+        description: Ad blocking and Local DNS
+        icon: hl-adguard-home
+        url: https://dns.local.wool.homes/#dns_rewrites
+        target: sametab
+        id: 2_696_adguardhome
+      - &ref_3
+        title: Traefik
+        description: Reverse Proxy
+        icon: https://icon.icepanel.io/Technology/svg/Traefik-Proxy.svg
+        url: https://traefik.local.wool.homes/dashboard/#/
+        target: sametab
+        id: 3_696_traefik
+      - &ref_4
+        title: Excalidraw
+        description: Diagrams for days!
+        icon: hl-excalidraw-light
+        url: https://excalidraw.local.wool.homes
+        target: sametab
+        id: 4_696_excalidraw
+      - &ref_5
+        title: Portainer
+        description: Somewhat useful Docker GUI
+        icon: hl-portainer
+        url: https://portainer.local.wool.homes
+        target: sametab
+        id: 5_696_portainer
+      - &ref_6
+        title: Pterodactyl
+        description: All the game servers!
+        icon: hl-pterodactyl
+        url: http://pterodactyl.local.wool.homes/
+        target: sametab
+        id: 6_696_pterodactyl
+      - &ref_7
+        title: TrueNAS
+        description: File server
+        icon: hl-truenas
+        url: https://truenas.local.wool.homes
+        target: sametab
+        id: 7_696_truenas
+      - &ref_8
+        title: DHCP
+        description: Set a DHCP static mapping
+        icon: mdi-server-network
+        url: https://router.local.wool.homes/services_dhcp.php
+        target: sametab
+        id: 8_696_dhcp
+      - &ref_9
+        title: Forgejo
+        description: Simple yet powerful git server
+        icon: hl-forgejo
+        url: https://forgejo.local.wool.homes
+        target: sametab
+        id: 9_696_forgejo
+      - &ref_10
+        title: Authentik
+        description: All things authentication
+        icon: hl-authentik
+        url: https://auth.local.wool.homes
+        target: sametab
+        id: 10_696_authentik
+      - &ref_11
+        title: Uptime Kuma
+        description: A fancy self-hosted monitoring tool
+        icon: hl-uptimekuma
+        url: https://uptime.local.wool.homes/dashboard
+        target: sametab
+        id: 11_696_uptimekuma
+      - &ref_12
+        title: Ansible
+        description: Ansible Semaphore Dashboard and Automations
+        icon: hl-ansible
+        url: https://ansible.local.wool.homes
+        target: sametab
+        id: 12_696_ansible
+    filteredItems:
+      - *ref_0
+      - *ref_1
+      - *ref_2
+      - *ref_3
+      - *ref_4
+      - *ref_5
+      - *ref_6
+      - *ref_7
+      - *ref_8
+      - *ref_9
+      - *ref_10
+      - *ref_11
+      - *ref_12
+    icon: fas fa-server
+    displayData:
+      sortBy: default
+      rows: 2
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+pages:
+  - name: ''
+    path: ''
