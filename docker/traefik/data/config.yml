@@ -1,0 +1,143 @@
+http:
+ #region routers 
+  routers:
+    proxmox:
+      entryPoints:
+        - "https"
+      rule: "Host(`proxmox.local.wool.homes`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: proxmox
+    adguard:
+      entryPoints:
+        - "https"
+      rule: "Host(`dns.local.wool.homes`)"
+      middlewares:
+        - https-redirectscheme
+      tls: {}
+      service: adguard
+    forgejo:
+      entryPoints:
+        - "https"
+      rule: "Host(`forgejo.local.wool.homes`)"
+      middlewares:
+        - https-redirectscheme
+      tls: {}
+      service: forgejo
+    authentik:
+      entrypoints:
+        - "https"
+      rule: "Host(`auth.local.wool.homes`)"
+      middlewares:
+        - https-redirectscheme
+      tls: {}
+      service: authentik
+    canvas:
+      entrypoints:
+        - "https"
+      rule: "Host(`canvas.local.wool.homes`)"
+      middlewares:
+        - file-headers
+        - https-redirectscheme
+      tls: {}
+      service: canvas
+    canvas_minio:
+      entrypoints:
+        - "https"
+      rule: "Host(`canvasfiles.local.wool.homes`)"
+      middlewares:
+        - file-headers
+        - https-redirectscheme
+      tls: {}
+      service: canvas_minio
+    canvas_minio_console:
+      entrypoints:
+        - "https"
+      rule: "Host(`canvasfilesconsole.local.wool.homes`)"
+      middlewares:
+        - default-headers     
+        - https-redirectscheme
+      tls: {}
+      service: canvas_minio_console
+
+#endregion
+#region services
+  services:
+    proxmox:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.1.20:8006"
+        passHostHeader: true
+    adguard:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.1:8675"
+        passHostHeader: true
+    forgejo:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.42"
+        passHostHeader: true
+    authentik:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.25"
+        passHostHeader: true
+    canvas:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.50:8000"
+        passHostHeader: true
+    canvas_minio:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.50:9001"
+        passHostHeader: true
+    canvas_minio_console:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.50:9090"
+        passHostHeader: true
+
+#endregion
+  middlewares:
+    https-redirectscheme:
+      redirectScheme:
+        scheme: https
+        permanent: true
+    
+    default-headers:
+      headers:
+        frameDeny: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 15552000
+        customFrameOptionsValue: SAMEORIGIN
+        customRequestHeaders:
+          X-Forwarded-Proto: https
+
+    file-headers:
+      headers:
+        accessControlAllowOriginList: "*"
+        accessControlAllowHeaders: "*"
+        accessControlAllowMethods: "*"
+        browserXssFilter: False
+        contentTypeNosniff: True
+
+    default-whitelist:
+      ipWhiteList:
+        sourceRange:
+        - "10.0.0.0/8"
+        - "192.168.0.0/16"
+        - "172.16.0.0/12"
+
+    secured:
+      chain:
+        middlewares:
+        - default-whitelist
+        - default-headers
