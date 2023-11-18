@@ -1,0 +1,15 @@
+# Canvas currently works without Redis, however some features require Redis and will be disabled.
+# Redis can also be used as a replacement for memcache, for both session store and caching.
+
+# The recommended setup is to define your redis server(s) in this file, and
+# then in cache_store.yml specify cache_store: redis_store without any servers
+# listed, which will tell Canvas to use this same server list. You can also
+# reverse this by configuring servers in cache_store.yml, and referencing them
+# here with servers: cache_store
+
+production:
+  servers:
+    # list of redis servers to use in the ring
+    - redis://<%= ENV['REDIS_HOST'] %>
+  # off, compact, or json
+  # log_style: compact
