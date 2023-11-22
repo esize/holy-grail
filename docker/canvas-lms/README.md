@@ -6,9 +6,9 @@ You can run multiple instances of this container for web and bg worker tasks.
 
 ## Build
 
-    ```bash
+```bash
     docker-compose build
-    ```
+```
 
 ## Install
 
@@ -38,3 +38,4 @@ Update `docker-compose.yml` with correct ENV_VARS
     ```bash
     docker-compose run --rm bash
     ```
+
