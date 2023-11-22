@@ -6,7 +6,7 @@ You can run multiple instances of this container for web and bg worker tasks.
 
 ## Build
 
-```shell
+```bash
 docker-compose build
 ```
 
