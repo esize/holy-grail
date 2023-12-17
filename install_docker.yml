@@ -44,4 +44,8 @@
         name: evan
         groups: docker
         append: yes
-    
+    - name: Add docker-compose alias
+      lineinfile:
+        path: /home/evan/.bashrc
+        line: alias docker-compose='docker compose'
+        create: true
