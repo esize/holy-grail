@@ -1,0 +1,26 @@
+services:
+  fasten:
+    image: ghcr.io/fastenhealth/fasten-onprem:main
+    hostname: fasten-health
+    restart: unless-stopped
+    volumes:
+      - ./cache:/opt/fasten/cache
+      - ./db:/opt/fasten/db
+    networks:
+      - proxy
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.fasten.entrypoints=http'
+      - 'traefik.http.routers.fasten.rule=Host(`fasten.local.wool.homes`)'
+      - 'traefik.http.middlewares.fasten-https-redirect.redirectscheme.scheme=https'
+      - 'traefik.http.routers.fasten.middlewares=fasten-https-redirect'
+      - 'traefik.http.routers.fasten-secure.entrypoints=https'
+      - 'traefik.http.routers.fasten-secure.rule=Host(`fasten.local.wool.homes`)'
+      - 'traefik.http.routers.fasten-secure.tls=true'
+      - 'traefik.http.routers.fasten-secure.service=fasten'
+      - 'traefik.http.services.fasten.loadbalancer.server.port=8080'
+      - 'traefik.docker.network=proxy'
+
+networks:
+  proxy:
+    external: true
