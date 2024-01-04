@@ -1,4 +1,4 @@
-anner /etc/issue.net
+banner /etc/issue.net
 PrintMOTD no
 
 Port 22
