@@ -22,8 +22,8 @@
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
           "foreground": "#e4e4e4",
-          "background": "{{if .OS \"ubuntu\"}}#E95420{{else}}#3465a4{{end}}",
-          "template": " \uf07c {{ .Path }}",
+          "background": "#3465a4",
+          "template": " \uf07c {{ .Path }} ",
           "properties": {
             "home_icon": "~",
             "style": "full"
@@ -205,8 +205,10 @@
           "type": "exit",
           "style": "plain",
           "foreground": "#e0f8ff",
-          "foreground_templates": ["{{ if gt .Code 0 }}#ef5350{{ end }}"],
-          "template": "\ue285\ufb00{{ if gt .Code 0 }}\uf00d{{ else }}\uf42e{{ end }} ",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}#ef5350{{ end }}"
+          ],
+          "template": "\ue285\udb81\ude01{{ if gt .Code 0 }}\uf00d{{ else }}\uf42e{{ end }} ",
           "properties": {
             "always_enabled": true
           }
