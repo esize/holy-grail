@@ -8,6 +8,13 @@
   ansible.builtin.git:
     repo: 'https://github.com/wbthomason/packer.nvim'
     dest: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
+    depth: 1
+
+- name: Own packer.nvim files
+  ansible.builtin.file:
+    path: /home/evan/.config/
+    owner: evan
+    group: evan
 
 - name: Add neovim config
   ansible.builtin.copy:

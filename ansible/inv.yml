@@ -2,6 +2,8 @@ pretty:
   hosts:
     media:
       ansible_host: 192.168.254.13
+    test:
+      ansible_host: 192.168.254.159
 servers:
   children:
     docker:
