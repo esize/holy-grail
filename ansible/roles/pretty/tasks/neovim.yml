@@ -1,0 +1,17 @@
+- name: Install neovim package
+  ansible.builtin.apt:
+    name: neovim
+    state: latest
+    update_cache: true
+
+- name: Install packer.nvim
+  ansible.builtin.git:
+    repo: 'https://github.com/wbthomason/packer.nvim'
+    dest: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
+
+- name: Add neovim config
+  ansible.builtin.copy:
+    src: nvim/
+    dest: /home/evan/.config/
+    owner: evan
+    group: evan

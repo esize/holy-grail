@@ -1,0 +1,62 @@
+- name: Install zsh package
+  ansible.builtin.apt:
+    state: latest
+    update_cache: true
+    name:
+      - zsh
+
+- name: Change user shell to zsh
+  ansible.builtin.user:
+    name: evan
+    shell: /usr/bin/zsh
+
+- name: Add zshrc
+  copy:
+    src: 'zsh/zshrc'
+    dest: /home/evan/.zshrc
+    owner: evan
+    group: evan
+    mode: 0600
+
+- name: Add inputrc
+  copy:
+    src: 'zsh/inputrc'
+    dest: /home/evan/.inputrc
+    owner: evan
+    group: evan
+    mode: 0600
+
+- name: Create zsh directory
+  ansible.builtin.file:
+    path: /home/evan/.zsh
+    state: directory
+- name: Create zsh user files
+  copy:
+    src: zsh/{{ item.src }}
+    dest: /home/evan/.zsh/{{ item.src }}
+    owner: evan
+    group: evan
+    mode: 0600
+  with_items:
+    - { src: 'aliases.zsh' }
+    - { src: 'bindkey.zsh' }
+    - { src: 'completion.zsh' }
+    - { src: 'exports.zsh' }
+    - { src: 'functions.zsh' }
+    - { src: 'history.zsh' }
+    - { src: 'path.zsh' }
+    - { src: 'plugins.zsh' }
+    - { src: 'setopt.zsh' }
+    - { src: 'theming.zsh' }
+    - { src: 'windows.zsh' }
+
+      #- name: Add env variables and path entries
+      #  template:
+      #    src: env.zsh.j2
+      #    dest: /home/evan/.zsh/env.zsh
+      #    owner: evan
+      #    group: evan
+      #    mode: 0600
+      #  vars:
+      #    env_vars:
+      #      gh_token: '{{ github_token }}'

@@ -1,0 +1,9 @@
+- block:
+    # Set up system users appropriately
+    - import_tasks: git.yml
+    - import_tasks: zsh.yml
+    - import_tasks: neovim.yml
+    - import_tasks: omp.yml
+    - name: Figurine shiz
+      include_role:
+        name: ironicbadger.figurine

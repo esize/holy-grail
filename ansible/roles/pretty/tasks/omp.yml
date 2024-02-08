@@ -1,0 +1,13 @@
+- name: Install oh-my-posh
+  get_url:
+    url: https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64
+    dest: /usr/local/bin/oh-my-posh
+    mode: a+x
+
+- name: Add oh-my-posh config
+  copy:
+    src: 'omp/omp.json'
+    dest: /home/evan/omp.json
+    owner: evan
+    group: evan
+    mode: 0600
