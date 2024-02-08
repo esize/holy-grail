@@ -1,0 +1,40 @@
+ungrouped:
+  hosts:
+    pihole:
+      ansible_port: 22
+      ansible_host: 192.168.254.253
+
+docker:
+  hosts:
+    portainer:
+      ansible_port: 22
+      ansible_host: 192.168.254.10
+
+proxmox:
+  hosts:
+    proxmox:
+      ansible_port: 22
+      ansible_host: 192.168.254.12
+    mediaserver:
+      ansible_port: 22
+      ansible_host: 192.168.254.13
+
+servers:
+  hosts:
+    homeassistant:
+      ansible_port: 22
+      ansible_host: 192.168.254.14
+    maas:
+      ansible_port: 22
+      ansible_host: 192.168.254.11
+    truenas:
+      ansible_port: 22
+      ansible_host: 192.168.254.157
+  children:
+    proxmox:
+    docker:
+
+pretty:
+  children:
+    docker:
+    proxmox:

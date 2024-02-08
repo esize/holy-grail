@@ -105,3 +105,5 @@ dist
 docker/canvas-lms/.env
 docker/traefik/.env
 docker/semaphore/.env
+
+*/.vault-password

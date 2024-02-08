@@ -31,3 +31,8 @@ bindkey '^[[1;3D'      cdUndoKey
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
+
+
+# ctrl left/right to go forward or back a word
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word

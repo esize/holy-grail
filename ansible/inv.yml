@@ -1,0 +1,13 @@
+pretty:
+  hosts:
+    media:
+      ansible_host: 192.168.254.13
+servers:
+  children:
+    docker:
+proxmox:
+  hosts:
+docker:
+  hosts:
+  children:
+    pretty:

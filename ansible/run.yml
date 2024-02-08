@@ -1,0 +1,22 @@
+- hosts: pretty
+  vars_files:
+    - 'vars/vault.yml'
+  roles:
+    - role: pretty
+- hosts: all
+  vars_files:
+    - 'vars/vault.yml'
+  roles:
+    - role: usable
+
+- hosts: docker
+  vars_files:
+    - 'vars/vault.yml'
+  roles:
+    - role: geerlingguy.docker
+
+- hosts: proxmox
+  vars_files:
+    - 'vars/vault.yml'
+  roles:
+    - role: ironicbadger.proxmox_nag_removal

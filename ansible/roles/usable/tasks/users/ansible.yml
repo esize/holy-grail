@@ -1,0 +1,13 @@
+- name: users | ansible | create ansible user
+  tags: settings,ansible,sudo,system,users
+  user:
+    name: ansible
+    system: yes
+
+- name: users | ansible | add public key
+  tags: dotfiles,ansible,ssh,ssh-keys,users
+  authorized_key:
+    user: ansible
+    key: '{{ item }}'
+  with_file:
+    - users/ansible/ssh/ansible.pub

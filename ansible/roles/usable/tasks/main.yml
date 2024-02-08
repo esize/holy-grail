@@ -1,0 +1,30 @@
+- block:
+    # Set up users on the system
+    - import_tasks: users/evan.yml
+    - import_tasks: users/ansible.yml
+    - import_tasks: users/root.yml
+
+    # Install software
+    - import_tasks: software/repositories.yml
+    - import_tasks: software/packages.yml
+
+    # System setup stuff
+    - name: Run NTP role
+      include_role:
+        name: geerlingguy.ntp
+      vars:
+        ntp_enabled: true
+        ntp_timezone: America/New_York
+
+    - name: Security stuffs
+      include_role:
+        name: geerlingguy.security
+      vars:
+        security_ssh_allowed_users:
+          - evan
+          - ansible
+        security_sudoers_passwordless:
+          - evan
+          - ansible
+
+    - import_tasks: system/locale.yml

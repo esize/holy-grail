@@ -1,0 +1,36 @@
+- name: users | evan | create group
+  tags: groups,evan,users
+  group:
+    name: evan
+    state: present
+
+- name: users | evan | create user
+  tags: evan,sudo,users
+  user:
+    name: evan
+    group: evan
+    groups: adm,sudo
+    # password: '{{ evan_password }}'
+    state: present
+    comment: 'Evan Sizemore'
+
+- name: users | evan | create .ssh directory
+  tags: dotfiles,evan,ssh,users
+  file:
+    path: '{{ item.dir }}'
+    state: directory
+    owner: evan
+    group: evan
+    mode: 0700
+  with_items:
+    - { dir: '/home/evan/.ssh' }
+
+- name: users | evan | add public key
+  tags: dotfiles,evan,ssh,ssh-keys,users
+  ansible.posix.authorized_key:
+    user: evan
+    key: '{{ item }}'
+  with_file:
+    - users/evan/ssh/wsl_ed25519.pub
+    - users/evan/ssh/powershell_ed25519.pub
+    - users/evan/ssh/powershell_rsa.pub

@@ -1,0 +1,16 @@
+- name: system setup | utilities | install utility packages
+  tags: packages,system,settings
+  package:
+    state: latest
+    name:
+      - curl
+      - dnsutils
+      - net-tools
+      - nfs-common
+      - rsync
+      - screen
+      - sshfs
+      - traceroute
+      - neovim
+      - wget
+      - git

@@ -1,0 +1,10 @@
+roles:
+  - src: ironicbadger.proxmox_nag_removal
+  - src: ironicbadger.figurine
+
+  - src: geerlingguy.docker
+  - src: geerlingguy.security
+  - src: geerlingguy.nfs
+  - src: geerlingguy.ntp
+
+  - src: artis3n.tailscale
