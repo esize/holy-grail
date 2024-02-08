@@ -12,6 +12,7 @@
 
 - name: Own packer.nvim files
   ansible.builtin.file:
+    state: directory
     path: /home/evan/.config/
     owner: evan
     group: evan
