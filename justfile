@@ -1,7 +1,7 @@
 set positional-arguments
 
 local:
-  ansible-playbook --connection=local --inventory 127.0.0.1, ansible/plays/local.yml
+  cd ansible && ansible-playbook --connection=local --inventory 127.0.0.1, plays/pull.yml
 
 play *ARGS:
   cd ansible && ansible-playbook {{ARGS}} -b run.yml

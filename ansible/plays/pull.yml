@@ -1,0 +1,15 @@
+- name: Run cloud-init config
+  hosts: all
+  connection: local
+  become: true
+  vars_files:
+    - '../vars/vault.yml'
+  ignore_errors: true
+  roles:
+    - role: '../roles/usable'
+    - role: '../roles/pretty'
+    - role: geerlingguy.docker
+      vars:
+        docker_users:
+          - evan
+          - ansible
