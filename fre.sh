@@ -7,7 +7,7 @@ sudo apt install pipx -y
 pipx ensurepath
 sudo pipx ensurepath --global
 su evan
-pipx install --include-deps ansible
+pipx inject --include-apps ansible argcomplete
 
 git -C "/home/evan/holy-grail" pull || git clone https://github.com/esize/holy-grail.git "/home/evan/holy-grail"
 sudo chown -R evan:evan /home/evan/holy-grail
