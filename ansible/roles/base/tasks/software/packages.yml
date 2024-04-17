@@ -17,6 +17,7 @@
       - zsh
       - git
       - gcc
+      - ripgrep
 
 - name: install oh-my-posh
   get_url:

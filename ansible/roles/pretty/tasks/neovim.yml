@@ -4,13 +4,7 @@
     state: latest
     update_cache: true
 
-- name: Install packer.nvim
-  ansible.builtin.git:
-    repo: 'https://github.com/wbthomason/packer.nvim'
-    dest: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
-    depth: 1
-
-- name: Own packer.nvim files
+- name: Own .config directory
   ansible.builtin.file:
     state: directory
     path: /home/evan/.config/
@@ -20,6 +14,6 @@
 - name: Add neovim config
   ansible.builtin.copy:
     src: nvim/
-    dest: /home/evan/.config/
+    dest: /home/evan/.config/nvim
     owner: evan
     group: evan
