@@ -7,7 +7,7 @@ play *ARGS:
   cd ansible && ansible-playbook {{ARGS}} -b run.yml
 
 install:
-  ansible-galaxy role install -r ansible/requirements.yml
+  /home/evan/.local/bin/ansible-galaxy role install -r ansible/requirements.yml
 
 encrypt:
   cd ansible && ansible-vault encrypt vars/vault.yml
