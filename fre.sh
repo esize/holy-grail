@@ -3,11 +3,7 @@ wget -qO - 'https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub' | gpg --de
 echo "deb [arch=all,$(dpkg --print-architecture) signed-by=/usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg] https://proget.makedeb.org prebuilt-mpr $(lsb_release -cs)" | sudo tee /etc/apt/sources.list.d/prebuilt-mpr.list
 sudo apt update
 sudo apt install just -y
-sudo apt install pipx -y
-pipx ensurepath
-sudo pipx ensurepath --global
-su evan
-pipx inject --include-apps ansible argcomplete
+sudo apt install ansible -y
 
 git -C "/home/evan/holy-grail" pull || git clone https://github.com/esize/holy-grail.git "/home/evan/holy-grail"
 sudo chown -R evan:evan /home/evan/holy-grail
