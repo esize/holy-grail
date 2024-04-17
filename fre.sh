@@ -6,11 +6,12 @@ sudo apt install just -y
 sudo apt install pipx -y
 pipx ensurepath
 sudo pipx ensurepath --global
+PIPX_BIN_DIR = /home/evan/.local/bin
 pipx install --include-deps ansible
 
-cd ~
-git clone https://github.com/esize/holy-grail.git ~/holy-grail
-cd ~/holy-grail
+cd /home/evan/
+git clone https://github.com/esize/holy-grail.git /home/evan/holy-grail
+cd /home/evan/holy-grail
 just install
 
 echo "Now copy the .vault-password file into ~/holy-grail/ansible"
