@@ -9,8 +9,7 @@ sudo pipx ensurepath --global
 su evan
 pipx install --include-deps ansible
 
-cd /home/evan/
-git clone https://github.com/esize/holy-grail.git /home/evan/holy-grail
+git -C "/home/evan/holy-grail" pull || git clone https://github.com/esize/holy-grail.git "/home/evan/holy-grail"
 cd /home/evan/holy-grail
 just install
 
