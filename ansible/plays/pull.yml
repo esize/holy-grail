@@ -6,6 +6,7 @@
     - '../vars/vault.yml'
   ignore_errors: true
   roles:
+    - role: '../roles/base'
     - role: '../roles/usable'
     - role: '../roles/pretty'
     - role: geerlingguy.docker

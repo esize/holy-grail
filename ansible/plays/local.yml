@@ -12,3 +12,5 @@
   become: true
   roles:
     - base
+    - pretty
+    - functional
