@@ -16,6 +16,7 @@
       - wget
       - zsh
       - git
+      - gcc
 
 - name: install oh-my-posh
   get_url:
