@@ -8,3 +8,12 @@
       - exim4-base
       - exim4-config
       - nano
+      - ubuntu-advantage-tools
+      - ubuntu-pro-client-l10n
+      - ubuntu-pro-client
+      - distro-info
+      - ubuntu-release-upgrader-core
+      - python3-debian
+      - python3-distupgrade
+      - python3-update-manager
+
