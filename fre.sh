@@ -6,7 +6,7 @@ sudo apt install just -y
 sudo apt install pipx -y
 pipx ensurepath
 sudo pipx ensurepath --global
-PIPX_BIN_DIR = /home/evan/.local/bin
+su evan
 pipx install --include-deps ansible
 
 cd /home/evan/
