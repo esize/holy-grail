@@ -6,3 +6,10 @@ sudo apt install just -y
 sudo apt install pipx -y
 pipx ensurepath
 sudo pipx ensurepath --global
+pipx install --include-deps ansible
+
+cd ~
+git clone https://github.com/esize/holy-grail.git
+cd holy-grail
+just install
+just local
