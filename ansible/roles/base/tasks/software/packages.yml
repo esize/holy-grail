@@ -18,6 +18,8 @@
       - git
       - gcc
       - ripgrep
+      - make
+      - just
 
 - name: install oh-my-posh
   get_url:
