@@ -20,6 +20,7 @@
       - ripgrep
       - make
       - just
+      - golang-go
 
 - name: install oh-my-posh
   get_url:
