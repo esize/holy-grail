@@ -207,7 +207,7 @@ apt-get install libguestfs-tools
 Download the Ubuntu Server image:
 
 ```shell
-wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+wget https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
 ```
 
 Customize the image by adding the qemu-guest-agent package
