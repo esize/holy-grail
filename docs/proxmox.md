@@ -225,19 +225,19 @@ qm create 8000 --memory 4096 --core 1 --name ubuntu-cloud --net0 virtio,bridge=v
 Import the downloaded Ubuntu disk to local-lvm storage
 
 ```shell
-qm importdisk 8000 noble-server-cloudimg-amd64.img local-lvm
+qm importdisk 8000 noble-server-cloudimg-amd64.img pool1
 ```
 
 Attach the new disk to the vm as a scsi drive on the scsi controller
 
 ```shell
-qm set 8000 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-8000-disk-0
+qm set 8000 --scsihw virtio-scsi-pci --scsi0 pool1:vm-8000-disk-0
 ```
 
 Add cloud init drive
 
 ```shell
-qm set 8000 --ide2 local-lvm:cloudinit
+qm set 8000 --ide2 pool1:cloudinit
 ```
 
 Make the cloud init drive bootable and restrict BIOS to boot from disk only
