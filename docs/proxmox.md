@@ -213,7 +213,7 @@ wget https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.i
 Customize the image by adding the qemu-guest-agent package
 
 ```shell
-virt-customize -a jammy-server-cloudimg-amd64.img --firstboot-install "qemu-guest-agent,git,neovim"
+virt-customize -a noble-server-cloudimg-amd64.img --firstboot-install "qemu-guest-agent,git,neovim"
 ```
 
 Create a new virtual machine
@@ -225,7 +225,7 @@ qm create 8000 --memory 4096 --core 1 --name ubuntu-cloud --net0 virtio,bridge=v
 Import the downloaded Ubuntu disk to local-lvm storage
 
 ```shell
-qm importdisk 8000 jammy-server-cloudimg-amd64.img local-lvm
+qm importdisk 8000 noble-server-cloudimg-amd64.img local-lvm
 ```
 
 Attach the new disk to the vm as a scsi drive on the scsi controller
