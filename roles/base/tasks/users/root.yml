@@ -2,31 +2,3 @@
   user:
     name: root
     password_lock: yes
-
-- name: users | root | create config directories
-  file:
-    path: /home/root/{{ item.dir }}
-    state: directory
-    owner: root
-    group: root
-    mode: 0700
-  with_items:
-    - { dir: '.bash' }
-    - { dir: '.config' }
-    - { dir: '.zsh' }
-  tags: dotfiles
-
-- name: users | root | copy dotfiles
-  copy:
-    src: users/root/{{ item.src }}
-    dest: /root/{{ item.dest}}
-    owner: root
-    group: root
-    mode: 0600
-  with_items:
-    - { src: 'bash/bashrc', dest: '.bashrc' }
-    - { src: 'bash/profile', dest: '.profile' }
-    - { src: 'git/gitconfig', dest: '.gitconfig' }
-    - { src: 'inputrc', dest: '.inputrc' }
-    - { src: 'zsh/zshrc', dest: '.zshrc' }
-  tags: dotfiles
