@@ -71,3 +71,7 @@
     group: evan
     mode: 0600
 
+
+- name: Install figurine
+  include_role:
+    name: ironicbadger.figurine

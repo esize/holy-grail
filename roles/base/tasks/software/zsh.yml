@@ -7,7 +7,3 @@
 - name: Install asdf
   include_role:
     name: baztian.asdf
-
-- name: Install pyenv
-  include_role:
-    name: markosamuli.pyenv
