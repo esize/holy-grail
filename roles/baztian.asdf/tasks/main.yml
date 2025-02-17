@@ -21,7 +21,6 @@
 - name: Download asdf {{ asdf_version }}
   get_url:
     url: "https://github.com/asdf-vm/asdf/archive/v{{ asdf_version }}.tar.gz"
-    checksum: "sha256:{{ asdf_sha256 }}"
     dest: "/tmp/asdf-{{ asdf_version }}.tar.gz"
   tags: asdf
   when: not asdf_directory.stat.exists
@@ -63,6 +62,7 @@
     src: "/opt/asdf/completions/asdf.bash"
     dest: "/etc/bash_completion.d/asdf_completer"
     state: link
+    force: yes
   tags: asdf
 - name: Install asdf plugins
   command: "/opt/asdf/bin/asdf plugin add {{ item.name }}"
