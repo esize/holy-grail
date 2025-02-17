@@ -43,32 +43,27 @@
 - name: users | evan | copy dotfiles
   tags: dotfiles,users,evan,users,zsh
   copy:
-    src: users/evan/{{ item.src }}
-    dest: /home/evan/{{ item.dest }}
+    src: users/evan/.config/
+    dest: /home/evan/.config/
     owner: evan
     group: evan
     mode: 0600
-  with_items:
-    - { src: 'omp.toml', dest: '.config/omp/omp.toml' }
 
-
-- name: users | evan | copy individual zsh config files
-  tags: dotfiles,evan,users,zsh
+- name: users | evan | copy gitconfig
+  tags: dotfiles,users,evan,users,git
   copy:
-    src: users/evan/zsh/{{ item.src }}
-    dest: /home/evan/.config/zsh/{{ item.src }}
+    src: users/evan/.gitconfig
+    dest: /home/evan/.gitconfig
     owner: evan
     group: evan
     mode: 0600
-  with_items:
-    - { src: 'aliases.zsh' }
-    - { src: 'bindkey.zsh' }
-    - { src: 'completion.zsh' }
-    - { src: 'exports.zsh' }
-    - { src: 'functions.zsh' }
-    - { src: 'history.zsh' }
-    - { src: 'path.zsh' }
-    - { src: 'plugins.zsh' }
-    - { src: 'setopt.zsh' }
-    - { src: 'theming.zsh' }
-    - { src: 'windows.zsh' }
+
+- name: users | evan | copy zshrc
+  tags: dotfiles,users,evan,users,git
+  copy:
+    src: users/evan/.zshrc
+    dest: /home/evan/.zshrc
+    owner: evan
+    group: evan
+    mode: 0600
+
