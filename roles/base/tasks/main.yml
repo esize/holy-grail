@@ -13,12 +13,8 @@
     - import_tasks: software/repositories.yml
     - import_tasks: software/packages.yml
     - import_tasks: software/cleanup.yml
+    - import_tasks: software/docker.yml
 
-    # Ensure system is configured correctly
-    - import_tasks: system/clock.yml
-    # - import_tasks: system/cron.yml
-    - import_tasks: system/locale.yml
-    - import_tasks: system/logging.yml
     - import_tasks: system/openssh.yml
 
   rescue:

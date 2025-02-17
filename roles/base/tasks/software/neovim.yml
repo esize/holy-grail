@@ -1,0 +1,14 @@
+- name: Add neovim repository
+  ansible.builtin.apt_repository:
+    repo: 'ppa:neovim-ppa/stable'
+
+- name: Install neovim
+  ansible.builtin.apt:
+    update_cache: yes
+    pkg:
+      - neovim
+
+- name: Clone neovim config
+  ansible.builtin.git:
+    repo: 'https://github.com/esize/my.nvim.git'
+    dest: /home/evan/.config/
