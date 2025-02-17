@@ -12,6 +12,7 @@
     - import_tasks: software/cleanup.yml
     - import_tasks: software/docker.yml
     - import_tasks: software/neovim.yml
+    - import_tasks: software/cargo.yml
 
     - import_tasks: system/openssh.yml
 

@@ -1,0 +1,40 @@
+- name: Install Cargo and Rust-related tools
+  become: true
+  become_user: evan
+  block:
+    - name: Check if Cargo is installed
+      command: cargo -V
+      register: cargo_exists
+      changed_when: false
+      ignore_errors: yes
+
+    - name: Download installer
+      get_url:
+        url: https://sh.rustup.rs
+        dest: /tmp/sh.rustup.rs
+        mode: '0755'
+      when: cargo_exists.rc != 0
+
+    - name: Install Rust/Cargo
+      shell: /tmp/sh.rustup.rs -y
+      args:
+        creates: ~/.cargo/bin/cargo
+      when: cargo_exists.rc != 0
+
+    - name: Ensure Cargo is available in the current session
+      shell: source ~/.cargo/env
+      args:
+        executable: /bin/bash
+
+    - name: Install Cargo packages
+      community.general.cargo:
+        name:
+          - eza
+          - bat
+          - zoxide
+          - ripgrep
+        state: latest
+        executable: ~/.cargo/bin/cargo
+      environment:
+        PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
+      when: cargo_exists.rc != 0
