@@ -26,10 +26,6 @@ reload () {
     exec "${SHELL}" "$@"
 }
 
-mkdir () {
-    local dir=$1
-    command mkdir "$dir"  &&  cd "$dir"
-}
 
 confirm() {
     local answer
@@ -125,3 +121,20 @@ precmd_disown() {
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd precmd_disown
+
+
+not_git_repo() {
+  if git -C "$directory" rev-parse --is-inside-work-tree >/dev/null 2>/dev/null; then
+    exit 0
+  else
+    exit 1
+  fi
+}
+
+if command -v bat &> /dev/null; then
+  alias bathelp='bat --plain --language=cmd-help'
+  help() (
+      set -o pipefail
+      "$@" --help 2>&1 | bathelp
+  )
+fi

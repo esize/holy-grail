@@ -1,2 +1,2 @@
-# Load plugins
 plugins=(git)
+

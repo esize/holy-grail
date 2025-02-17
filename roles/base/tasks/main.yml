@@ -1,6 +1,8 @@
 - block:
     # Set up system users appropriately
     - import_tasks: users/root.yml
+    - import_tasks: software/zsh.yml
+    
     - import_tasks: users/evan.yml
     - import_tasks: users/ansible.yml
 

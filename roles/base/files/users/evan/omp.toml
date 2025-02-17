@@ -1,0 +1,209 @@
+version = 3
+
+[palette]
+  base = '#24273a'
+  blue = '#8AADF4'
+  closer = 'p:os'
+  crust = '#181926'
+  flamingo = '#dd7878'
+  green = '#a6da95'
+  lavender = '#B7BDF8'
+  mantle = '#1e2030'
+  maroon = '#ee99a0'
+  mauve = '#c6a0f6'
+  os = '#ACB0BE'
+  peach = '#f5a97f'
+  pink = '#F5BDE6'
+  red = '#ed8796'
+  sapphire = '#7dc4e4'
+  sky = '#91d7e3'
+  surface0 = '#363a4f'
+  surface2 = '#5b6078'
+  teal = '#8bd5ca'
+  text = '#cad3f5'
+  yellow = '#eed49f'
+
+[secondary_prompt]
+  template = ' '
+  foreground = 'p:surface2'
+  background = 'transparent'
+
+[transient_prompt]
+  template = ' '
+  background = 'transparent'
+  foreground_templates = ['{{if gt .Code 0}}p:red{{end}}', '{{if eq .Code 0}}p:text{{end}}']
+  newline = true
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    leading_diamond = ''
+    trailing_diamond = ' '
+    template = '{{ if .SSHSession }}  {{.HostName}} {{ end }}'
+    foreground = 'p:base'
+    background = 'p:teal'
+    type = 'session'
+    style = 'diamond'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    leading_diamond = ''
+    trailing_diamond = ' '
+    template = '{{ if .Root }}{{ end }}'
+    foreground = 'p:base'
+    background = 'p:maroon'
+    type = 'session'
+    style = 'diamond'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    leading_diamond = ''
+    template = ' {{ if .WSL }}WSL {{ end }}{{.Icon}} '
+    foreground = 'p:crust'
+    type = 'os'
+    style = 'diamond'
+    background_templates = ['{{if contains "ubuntu" .OS}}p:peach{{end}}', '{{if contains "windows" .OS}}p:blue{{end}}', '{{if contains "nixos" .OS}}p:lavender{{end}}']
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      windows = ''
+
+  [[blocks.segments]]
+    template = '  {{ .Path }} '
+    foreground = 'p:text'
+    powerline_symbol = ''
+    background = 'p:mantle'
+    type = 'path'
+    style = 'powerline'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      home_icon = '~'
+      style = 'full'
+
+  [[blocks.segments]]
+    template = ' {{ .UpstreamIcon }}{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}<p:red>  {{ .Staging.String }}</>{{ end }} '
+    foreground = 'p:base'
+    powerline_symbol = ''
+    background = 'p:flamingo'
+    type = 'git'
+    style = 'powerline'
+    background_templates = ['{{ if or (.Working.Changed) (.Staging.Changed) }}p:yellow{{ end }}', '{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:green{{ end }}', '{{ if gt .Ahead 0 }}p:mauve{{ end }}', '{{ if gt .Behind 0 }}p:mauve{{ end }}']
+
+    [blocks.segments.properties]
+      branch_icon = ' '
+      cache_duration = 'none'
+      fetch_status = true
+      fetch_upstream_icon = true
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+
+  [[blocks.segments]]
+    leading_diamond = ''
+    trailing_diamond = ''
+    template = ' {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }}'
+    foreground = 'p:green'
+    background = 'p:surface0'
+    type = 'node'
+    style = 'diamond'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      fetch_package_manager = true
+
+  [[blocks.segments]]
+    leading_diamond = ' '
+    trailing_diamond = ''
+    template = ' {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }}'
+    foreground = 'p:yellow'
+    background = 'p:surface0'
+    type = 'python'
+    style = 'diamond'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    leading_diamond = ' '
+    trailing_diamond = ''
+    template = ' {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}'
+    foreground = 'p:red'
+    background = 'p:surface0'
+    type = 'java'
+    style = 'diamond'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    leading_diamond = ' '
+    trailing_diamond = ''
+    template = ' {{ if .Unsupported }}{{ else }}{{ .Full }}{{ end }}'
+    foreground = 'p:sapphire'
+    background = 'p:surface0'
+    type = 'dotnet'
+    style = 'diamond'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    leading_diamond = ' '
+    trailing_diamond = ''
+    template = 'ﳑ {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}'
+    foreground = 'p:sky'
+    background = 'p:surface0'
+    type = 'go'
+    style = 'diamond'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    leading_diamond = ' '
+    trailing_diamond = ''
+    template = ' {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}'
+    foreground = 'p:peach'
+    background = 'p:surface0'
+    type = 'rust'
+    style = 'diamond'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    leading_diamond = ' '
+    trailing_diamond = ''
+    template = 'ﴱ {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}'
+    foreground = 'p:blue'
+    background = 'p:surface0'
+    type = 'kubectl'
+    style = 'diamond'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    template = ' '
+    background = 'transparent'
+    type = 'status'
+    style = 'plain'
+    foreground_templates = ['{{if gt .Code 0}}p:red{{end}}', '{{if eq .Code 0}}p:text{{end}}']
+
+    [blocks.segments.properties]
+      always_enabled = true
+      cache_duration = 'none'

@@ -1,9 +1,4 @@
 # Command aliases
-alias ..='cd ..'
-alias ...='cd ../../../'
-alias ....='cd ../../../../'
-alias back='cd $OLDPWD'
-alias c='clear'
 alias cd..='cd ..'
 alias cp='cp -iv'
 alias chmod="chmod -c"
@@ -11,38 +6,44 @@ alias chown="chown -c"
 alias df='df -h -x squashfs -x tmpfs -x devtmpfs'
 alias egrep='egrep --colour=auto'
 alias extip='curl icanhazip.com'
-alias grep='grep --color=auto'
 alias l.='ls -lhFa --time-style=long-iso --color=auto'
 alias ll='ls'
 alias ln='ln -iv'
-alias ls=' ls -lhF --color=auto --human-readable --time-style=long-iso --classify'
+if command -v eza &> /dev/null; then
+  alias ls='eza --icons -a --group-directories-first'
+fi
 alias lsmount='mount |column -t'
 alias mkdir='mkdir -pv'
 alias mv='mv -iv'
 alias ports='netstat -tulanp'
-alias h='history -i 1'
-alias history='history 1'
 alias j='jobs -l'
 alias rm='rm -iv'
 alias rmdir='rmdir -v'
-alias speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -'
 alias ssha='eval $(ssh-agent) && ssh-add'
 alias watch='watch -d'
-alias weather='curl wttr.in'
 alias wget='wget -c'
-alias vim='nvim'
 
-## get top process eating memory
-alias mem5='ps auxf | sort -nr -k 4 | head -5'
-alias mem10='ps auxf | sort -nr -k 4 | head -10'
+if command -v nvim &> /dev/null; then
+  alias vim='nvim'
+fi
 
-## get top process eating cpu ##
-alias cpu5='ps auxf | sort -nr -k 3 | head -5'
-alias cpu10='ps auxf | sort -nr -k 3 | head -10'
+if command -v python3 &> /dev/null; then
+  alias python='python3'
+fi
 
-## list largest directories (aka "ducks")
-alias dir5='du -cksh * | sort -hr | head -n 5'
-alias dir10='du -cksh * | sort -hr | head -n 10'
+if command -v pip3 &> /dev/null; then
+  alias pip='pip3'
+fi
+
+if command -v lf-ueberzug &> /dev/null; then
+  alias lf='lf-ueberzug'
+fi
+
+if command -v bat &> /dev/null; then
+  alias cat='bat'
+fi
+
+alias \$=''
 
 # Safetynets
 # do not delete / or prompt if deleting more than 3 files at a time #
@@ -57,3 +58,15 @@ alias chgrp='chgrp --preserve-root'
 alias update='sudo apt update'
 alias upgrade='sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && sudo apt clean'
 alias install='sudo apt install'
+
+# dotfile management
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+
+if command -v bat &> /dev/null; then
+  alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+fi
+
+if command -v docker &> /dev/null; then
+  alias docker-compose='docker compose'
+fi

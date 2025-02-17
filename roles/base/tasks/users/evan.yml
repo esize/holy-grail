@@ -9,10 +9,10 @@
   user:
     name: evan
     group: evan
-    groups: adm,sudo
+    groups: adm,sudo,evan,wheel,docker
     state: present
     comment: 'Evan Sizemore'
-    shell: /bin/bash
+    shell: /bin/zsh
 
 - name: users | evan | evan | add sudoers file
   tags: evan,settings,ansible,sudo,system,users
@@ -40,19 +40,6 @@
     user: evan
     key: https://github.com/esize.keys
 
-- name: users | evan | create config directories
-  tags: dotfiles,evan,users,zsh
-  file:
-    path: /home/evan/{{ item.dir }}
-    state: directory
-    owner: evan
-    group: evan
-    mode: 0700
-  with_items:
-    - { dir: '.bash' }
-    - { dir: '.config' }
-    - { dir: '.zsh' }
-
 - name: users | evan | copy dotfiles
   tags: dotfiles,users,evan,users,zsh
   copy:
@@ -62,21 +49,14 @@
     group: evan
     mode: 0600
   with_items:
-    - { src: 'bash/bash_aliases', dest: '.bash/bash_aliases' }
-    - { src: 'bash/bash_profile', dest: '.bash_profile' }
-    - { src: 'bash/bash_functions', dest: '.bash/bash_functions' }
-    - { src: 'bash/bashrc', dest: '.bashrc' }
-    - { src: 'bash/profile', dest: '.profile' }
-    - { src: 'git/gitconfig', dest: '.gitconfig' }
-    - { src: 'inputrc', dest: '.inputrc' }
-    - { src: 'zsh/zshrc', dest: '.zshrc' }
-    - { src: 'omp.json', dest: 'omp.json' }
+    - { src: 'omp.toml', dest: '.config/omp/omp.toml' }
+
 
 - name: users | evan | copy individual zsh config files
   tags: dotfiles,evan,users,zsh
   copy:
     src: users/evan/zsh/{{ item.src }}
-    dest: /home/evan/.zsh/{{ item.src }}
+    dest: /home/evan/.config/zsh/{{ item.src }}
     owner: evan
     group: evan
     mode: 0600
@@ -91,3 +71,4 @@
     - { src: 'plugins.zsh' }
     - { src: 'setopt.zsh' }
     - { src: 'theming.zsh' }
+    - { src: 'windows.zsh' }

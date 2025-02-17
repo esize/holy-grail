@@ -12,7 +12,6 @@
       - sshfs
       - tmux
       - traceroute
-      - neovim
       - wget
       - zsh
       - git

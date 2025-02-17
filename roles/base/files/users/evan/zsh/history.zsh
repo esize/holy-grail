@@ -2,7 +2,7 @@
 HISTFILE=~/.zhistory
 
 # Set history size
-HISTSIZE=1000
+HISTSIZE=100000
 
 # Set the number of lines in $HISTFILE
 SAVEHIST="${HISTSIZE}"
