@@ -1,0 +1,4 @@
+asdf_data_dir: ~/.asdf
+asdf_become: no
+asdf_bashrc: |
+      . /opt/asdf/asdf.sh

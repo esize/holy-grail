@@ -1,0 +1,24 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  tasks:
+  - name: Examine asdf plugin list
+    command: "/opt/asdf/bin/asdf plugin list"
+    environment:
+      ASDF_DATA_DIR: /opt/asdf
+    register: asdf_plugin_list
+  - name: asdf Terraform plugin should be installed
+    assert:
+      that:
+        - '"terraform" in asdf_plugin_list.stdout'
+  - name: Run terraform version
+    command: /opt/asdf/shims/terraform --version
+    environment:
+      ASDF_DATA_DIR: /opt/asdf
+    register: terraform_version
+  - name: Terraform version should match
+    assert:
+      that:
+        - '"0.14.2" in terraform_version.stdout'

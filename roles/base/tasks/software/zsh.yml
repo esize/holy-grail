@@ -3,3 +3,7 @@
   ansible.builtin.package:
     name: zsh
     state: present
+
+- name: Install asdf
+  include_role:
+    name: baztian.asdf

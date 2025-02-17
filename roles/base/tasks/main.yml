@@ -13,7 +13,7 @@
     - import_tasks: software/docker.yml
     - import_tasks: software/neovim.yml
 
-    - import_tasks: system/openssh.yml
+    # - import_tasks: system/openssh.yml
 
   rescue:
     - set_fact: task_failed=true

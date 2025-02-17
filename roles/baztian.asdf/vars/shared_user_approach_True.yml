@@ -1,0 +1,5 @@
+asdf_data_dir: /opt/asdf
+asdf_become: yes
+asdf_bashrc: |
+      export ASDF_DATA_DIR={{ asdf_data_dir }}
+      . /opt/asdf/asdf.sh
