@@ -77,7 +77,6 @@
     - 10-help-text
     - 50-landscape-sysinfo
     - 50-motd-news
-    - 85-fwupd
     - 90-updates-available
     - 91-contract-ua-esm-status
     - 91-release-upgrade
