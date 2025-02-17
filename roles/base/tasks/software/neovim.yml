@@ -11,4 +11,24 @@
 - name: Clone neovim config
   ansible.builtin.git:
     repo: 'https://github.com/esize/my.nvim.git'
-    dest: /home/evan/.config/
+    dest: /home/evan/.config/nvim
+    clone: yes
+    update: yes
+
+- name: Own neovim directory
+  ansible.builtin.file:
+    path: /home/evan/.config/nvim
+    owner: evan
+    group: evan
+    recurse: true
+
+- name: Install c compiler
+  ansible.builtin.apt:
+    pkg:
+      - build-essential
+
+- name: Install Neovim plugins using Lazy.nvim
+  shell: nvim --headless "+Lazy sync" +qa
+  args:
+    executable: /bin/bash
+  changed_when: false

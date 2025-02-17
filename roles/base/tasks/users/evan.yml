@@ -1,8 +1,12 @@
 - name: users | evan | create group
   tags: groups,evan,users
   group:
-    name: evan
+    name: "{{item}}"
     state: present
+  loop:
+    - evan
+    - docker
+    - wheel
 
 - name: users | evan | create user
   tags: evan,sudo,users
