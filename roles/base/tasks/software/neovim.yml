@@ -40,19 +40,18 @@
       shell: >
         curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash 
       args:
-        executable: /bin/bash
         chdir: "$HOME"
         creates: "$HOME/.nvm/nvm.sh"
 
-    - name: add {{extra_path}} to path
-      lineinfile:
-        dest: /etc/environment
-        state: present
-        backrefs: yes
-        regexp: 'PATH=(["]*)((?!.*?"{{extra_path}}").*?)(["]*)$'
-        line: 'PATH=\1\2:"{{extra_path}}"\3'
-      vars:
-        extra_path: "$HOME/.nvm/nvm.sh"
+- name: add {{extra_path}} to path
+  lineinfile:
+    dest: /etc/environment
+    state: present
+    backrefs: yes
+    regexp: 'PATH=(["]*)((?!.*?"{{extra_path}}").*?)(["]*)$'
+    line: 'PATH=\1\2:"{{extra_path}}"\3'
+  vars:
+    extra_path: "$HOME/.nvm/nvm.sh"
 
 
   when: nvm_path.stat.exists == false
@@ -63,21 +62,25 @@
   become_user: evan 
   block:
   - name: Install node versions using loop
-    command: nvm install {{item}}
+    shell: >
+      bash -c "source $HOME/.nvm/nvm.sh && nvm install v{{ item }}"
     args:
       executable: /bin/bash
-      chdir: "$HOME"
-      creates: "$HOME/.nvm/versions/node/v{{item}}"
     loop:
       - 22.14.0
   - name: Install TypeScript
-    command: npm install -g typescript
+    shell: >
+      bash -c "source $HOME/.nvm/nvm.sh && npm install -g typescript"
     args:
       executable: /bin/bash
-      chdir: "$HOME"
 
-- name: Install Neovim plugins using Lazy.nvim
-  shell: nvim --headless "+Lazy sync" +qa
+
+- name: Ensure Neovim plugins are installed using Lazy.nvim
+  become: yes
+  become_flags: -i
+  become_user: evan
+  shell: >
+    nvim --headless "+Lazy! sync" +qa
   args:
     executable: /bin/bash
   changed_when: false
