@@ -1,6 +1,0 @@
-production:
-  domain: "<%= ENV['DOMAIN'] %><%= ENV['CUSTOM_PORT'] %>"
-  # whether this instance of canvas is served over ssl (https) or not
-  # defaults to true for production, false for test/development
-  ssl: true
-  # files_domain: "canvasfiles.example.com"
