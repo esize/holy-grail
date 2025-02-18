@@ -1,0 +1,102 @@
+- name: software | neovim | ensure FUSE is installed for AppImages
+  ansible.builtin.apt:
+    name: libfuse2
+    state: present
+
+- name: software | neovim | remove existing neovim installations
+  ansible.builtin.apt:
+    name: neovim
+    state: absent
+
+- name: software | neovim | ensure /usr/local/bin exists
+  ansible.builtin.file:
+    path: /usr/local/bin
+    state: directory
+    mode: '0755'
+
+- name: software | neovim | check installed neovim version
+  ansible.builtin.command: nvim --version
+  register: installed_nvim_version
+  ignore_errors: true
+  changed_when: false
+
+- name: software | neovim | get latest neovim release version from GitHub
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/neovim/neovim/releases/latest"
+    return_content: yes
+  register: latest_nvim_release
+
+- name: software | neovim | extract latest version tag
+  ansible.builtin.set_fact:
+    latest_nvim_version: "{{ latest_nvim_release.json.tag_name | regex_replace('^v', '') }}"
+
+- name: software | neovim | backup current neovim binary if it exists
+  become: true
+  ansible.builtin.command: mv /usr/local/bin/nvim /usr/local/bin/nvim.old
+  args:
+    removes: /usr/local/bin/nvim
+  when: installed_nvim_version.stdout is defined
+
+- name: software | neovim | download latest neovim AppImage
+  become: true
+  when: >
+    installed_nvim_version.failed or
+    installed_nvim_version.stdout.split()[1] != latest_nvim_version
+  block:
+    - name: software | neovim | remove any old neovim versions
+      ansible.builtin.file:
+        path: /usr/local/bin/nvim.old
+        state: absent
+
+    - name: software | neovim | download neovim AppImage
+      ansible.builtin.get_url:
+        url: "https://github.com/neovim/neovim/releases/download/v{{ latest_nvim_version }}/nvim-linux-x86_64.appimage"
+        dest: "/usr/local/bin/nvim"
+        mode: '0755'
+
+    - name: software | neovim | ensure neovim AppImage is executable
+      ansible.builtin.file:
+        path: /usr/local/bin/nvim
+        mode: '0755'
+
+- name: software | neovim | verify neovim installation
+  ansible.builtin.command: nvim --version
+  register: new_nvim_version
+  changed_when: false
+  ignore_errors: true
+
+- name: software | neovim | if FUSE fails, extract neovim AppImage manually
+  become: true
+  when: new_nvim_version.rc != 0
+  block:
+    - name: software | neovim | extract neovim AppImage
+      shell: "/usr/local/bin/nvim --appimage-extract"
+      args:
+        chdir: /usr/local/bin
+        creates: /usr/local/bin/squashfs-root
+
+    - name: software | neovim | move extracted binary to /usr/local/bin
+      ansible.builtin.copy:
+        src: "/usr/local/bin/squashfs-root/usr/bin/nvim"
+        dest: "/usr/local/bin/nvim"
+        remote_src: yes
+        mode: '0755'
+
+    - name: software | neovim | clean up extracted files
+      ansible.builtin.file:
+        path: /usr/local/bin/squashfs-root
+        state: absent
+
+- name: software | neovim | final neovim verification
+  ansible.builtin.command: nvim --version
+  register: final_nvim_version
+  changed_when: false
+  ignore_errors: true
+
+
+- name: software | neovim | remove backup binary if update was successful
+  become: true
+  ansible.builtin.file:
+    path: /usr/local/bin/nvim.old
+    state: absent
+  when: new_nvim_version.rc == 0

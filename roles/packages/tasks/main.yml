@@ -1,0 +1,35 @@
+- name: packages | system | zsh
+  become: true
+  ansible.builtin.apt:
+    name: zsh
+    state: latest
+
+- name: packages | system | utilities
+  become: true
+  ansible.builtin.apt:
+    name: 
+      - aptitude
+      - software-properties-common
+      - curl
+      - dnsutils
+      - net-tools
+      - nfs-common
+      - rsync
+      - sshfs
+      - tmux
+      - traceroute
+      - wget
+      - git
+      - build-essential
+    state: latest
+
+- name: packages | system | uninstall
+  become: true
+  ansible.builtin.apt:
+    state: absent
+    name:
+      - cowsay
+      - exim4
+      - exim4-base
+      - exim4-config
+      - nano

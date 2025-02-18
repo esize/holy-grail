@@ -1,0 +1,3 @@
+- block:
+    - import_tasks: figurine.yml
+    - import_tasks: openssh.yml

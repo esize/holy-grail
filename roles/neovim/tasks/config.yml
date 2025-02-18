@@ -1,0 +1,44 @@
+- name: dotfiles | neovim | check if neovim config directory is up to date
+  ansible.builtin.command:
+    cmd: git diff --quiet
+    chdir: /home/evan/.config/nvim
+  register: git_diff
+  ignore_errors: true
+
+- name: dotfiles | neovim | clone neovim config if not up to date
+  ansible.builtin.git:
+    repo: 'https://github.com/esize/my.nvim.git'
+    dest: /home/evan/.config/nvim
+    clone: yes
+    update: yes
+    force: no
+  when: git_diff.rc != 0
+
+- name: dotfiles | neovim | own neovim directory
+  ansible.builtin.file:
+    path: /home/evan/.config/nvim
+    owner: evan
+    group: evan
+    recurse: true
+
+- name: dotfiles | neovim | install c compiler
+  ansible.builtin.apt:
+    pkg:
+      - build-essential
+
+- name: dotfiles | neovim | install TypeScript
+  shell: >
+    bash -c "source $HOME/.nvm/nvm.sh && npm install -g typescript"
+  args:
+    executable: /bin/bash
+
+
+- name: dotfiles | neovim | ensure Neovim plugins are installed using Lazy.nvim
+  become: yes
+  become_flags: -i
+  become_user: evan
+  shell: >
+    nvim --headless "+Lazy! sync" +qa
+  args:
+    executable: /bin/bash
+  changed_when: false

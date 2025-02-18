@@ -1,0 +1,45 @@
+- name: users | evan | create group
+  tags: groups,evan,users
+  group:
+    name: "{{item}}"
+    state: present
+  loop:
+    - evan
+    - docker
+    - wheel
+
+- name: users | evan | create user
+  tags: evan,sudo,users
+  user:
+    name: evan
+    group: evan
+    groups: adm,sudo,evan,wheel,docker
+    state: present
+    comment: 'Evan Sizemore'
+    shell: /bin/zsh
+
+- name: users | evan | evan | add sudoers file
+  tags: evan,settings,ansible,sudo,system,users
+  copy:
+    src: sudoers_evan
+    dest: /etc/sudoers.d/evan
+    owner: root
+    group: root
+    mode: 0440
+
+- name: users | evan | create .ssh directory
+  tags: dotfiles,evan,ssh,users
+  file:
+    path: '{{ item.dir }}'
+    state: directory
+    owner: evan
+    group: evan
+    mode: 0700
+  with_items:
+    - { dir: '/home/evan/.ssh' }
+
+- name: users | evan | add public key
+  tags: dotfiles,evan,ssh,ssh-keys,users
+  ansible.posix.authorized_key:
+    user: evan
+    key: https://github.com/esize.keys

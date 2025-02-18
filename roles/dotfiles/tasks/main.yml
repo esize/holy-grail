@@ -1,0 +1,26 @@
+- name: dotfiles | evan | copy dotfiles
+  tags: dotfiles,users,evan,users,zsh
+  copy:
+    src: evan/.config/
+    dest: /home/evan/.config/
+    owner: evan
+    group: evan
+    mode: 0600
+
+- name: dotfiles | evan | copy gitconfig
+  tags: dotfiles,users,evan,users,git
+  copy:
+    src: evan/.gitconfig
+    dest: /home/evan/.gitconfig
+    owner: evan
+    group: evan
+    mode: 0600
+
+- name: dotfiles | evan | copy zshrc
+  tags: dotfiles,users,evan,users,git
+  copy:
+    src: evan/.zshrc
+    dest: /home/evan/.zshrc
+    owner: evan
+    group: evan
+    mode: 0600

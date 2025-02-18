@@ -1,0 +1,35 @@
+- name: openssh
+  become: true
+  block:
+    - name: ssh | openssh | install or update daemon package
+      tags: openssh,ssh,system,settings
+      package:
+        name: openssh-server
+        state: latest
+      notify: restart_sshd
+
+    - name: ssh | openssh | enable daemon
+      tags: openssh,ssh,system,settings
+      service:
+        name: ssh
+        enabled: yes
+        state: started
+
+    - name: ssh | openssh | generate sshd_config file from template
+      tags: openssh,ssh,system,settings
+      copy:
+        src: sshd_config
+        dest: /etc/ssh/sshd_config
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart_sshd
+
+    - name: ssh | openssh | copy issue.net
+      tags: openssh,ssh,system,settings
+      copy:
+        src: openssh_issue.net
+        dest: /etc/issue.net
+        owner: root
+        group: root
+        mode: 0644

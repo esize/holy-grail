@@ -1,14 +1,21 @@
 - hosts: all
   connection: ssh
-  become: true
+  become: yes
   pre_tasks:
     - name: update package cache
-      apt: update_cache=yes
+      apt: 
+        update_cache: yes
+        cache_valid_time: 3600
       changed_when: False
 
 - hosts: all
   connection: ssh
   tags: base
-  become: true
   roles:
-    - base
+    # - users
+    # - dotfiles
+    # - ssh
+    # - docker
+    - package-managers
+    - packages
+    - neovim
