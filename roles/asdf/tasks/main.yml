@@ -10,8 +10,8 @@
   import_tasks: "install.yml"
   tags: [asdf, asdf-install]
 
-- name: "asdf shell configs"
-  import_tasks: "shell.yml"
+# - name: "asdf shell configs"
+#   import_tasks: "shell.yml"
 
 - name: "install plugins"
   import_tasks: "tools/main.yml"
