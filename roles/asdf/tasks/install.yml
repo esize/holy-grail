@@ -35,6 +35,7 @@
   environment: "{{ asdf_shell_env }}"
   changed_when: false
   register: raw_asdf_version
+  ignore_errors: true
 
 - name: set current asdf version
   set_fact:

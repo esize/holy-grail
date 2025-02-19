@@ -15,7 +15,14 @@
     - users
     - dotfiles
     - ssh
-    - docker
     - asdf
     - packages
     - neovim
+
+- hosts: all
+  become: true
+  vars:
+    docker_users:
+      - evan
+  roles:
+    - docker
