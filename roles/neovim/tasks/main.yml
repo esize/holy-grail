@@ -4,6 +4,7 @@
     chdir: /home/evan/.config/nvim
   register: git_diff
   ignore_errors: true
+  changed_when: false
 
 - name: dotfiles | neovim | check if there are local changes in the neovim config directory
   ansible.builtin.command:
