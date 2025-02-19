@@ -38,13 +38,3 @@ asdf_plugins:
     versions:
       - latest
     global: latest
-  - name: "ohmyposh"
-    repository: https://github.com/splinter98/asdf-ohmyposh.git
-    versions:
-      - latest
-    global: latest
-  - name: "ripgrep"
-    repository: "https://github.com/alk-adong/asdf-ripgrep.git"
-    versions:
-      - latest
-    global: latest

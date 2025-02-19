@@ -1,0 +1,6 @@
+- name: "Set {{ item.0.name }} global version {{ item.3 }}"
+  ansible.builtin.command: "asdf set -u {{ item.0.name }} {{ item.3 }}"
+  environment: "{{ asdf_shell_env }}"
+  become: true
+  become_user: "{{ asdf_user }}"
+  when: not version_installed

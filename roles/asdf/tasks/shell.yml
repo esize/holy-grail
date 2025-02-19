@@ -67,6 +67,7 @@
         # asdf configuration
         export ASDF_DATA_DIR="{{ asdf_dir }}"
         export ASDF_CONFIG_FILE="{{ asdf_config_file }}"
+        export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="{{ asdf_default_tool_versions_file }}"
         
         # Add asdf binary path
         export PATH="{{ asdf_bin_dir }}:$PATH"
@@ -83,7 +84,7 @@
 - name: "Create tool-versions file"
   ansible.builtin.template:
     src: tool-versions.j2
-    dest: "{{ user_home }}/.tool-versions"
+    dest: "{{ asdf_default_tool_versions_file }}"
     mode: '0644'
     owner: "{{ asdf_user }}"
     group: "{{ asdf_group }}"

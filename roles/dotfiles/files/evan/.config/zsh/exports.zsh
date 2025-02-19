@@ -16,6 +16,3 @@ export display=:0
 
 export SUDO_EDITOR="nvim"
 alias "sudoedit"='function _sudoedit(){sudo -e "$1";};_sudoedit'
-
-export ASDF_DATA_DIR="/home/evan/.asdf"
-export PATH="$ASDF_DATA_DIR/shims:$PATH"

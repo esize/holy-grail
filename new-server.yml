@@ -16,7 +16,7 @@
     - dotfiles
     - ssh
     - users
-    # - asdf
+    - asdf
 #     - neovim
 
 # - hosts: all
