@@ -15,13 +15,6 @@
         skip_missing: true
   when: asdf_plugins | length > 0
 
-  
-- name: dotfiles | neovim | install typescript
-  community.general.npm:
-    name: typescript
-    global: true
-  environment: "{{ asdf_shell_env }}"
-
 - name: Check npm version
   command: npm --version
   register: npm_version
@@ -30,3 +23,8 @@
 
 - debug:
     var: npm_version
+- name: dotfiles | neovim | install typescript
+  community.general.npm:
+    name: typescript
+    global: true
+  environment: "{{ asdf_shell_env }}"

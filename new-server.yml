@@ -12,17 +12,17 @@
   connection: ssh
   tags: base
   roles:
-    - users
+    - packages
     - dotfiles
     - ssh
-    - asdf
-    - packages
-    - neovim
+    - users
+    # - asdf
+#     - neovim
 
-- hosts: all
-  become: true
-  vars:
-    docker_users:
-      - evan
-  roles:
-    - docker
+# - hosts: all
+#   become: true
+#   vars:
+#     docker_users:
+#       - evan
+#   roles:
+#     - docker
