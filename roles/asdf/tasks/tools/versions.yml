@@ -10,7 +10,12 @@
 
 - name: installed list
   set_fact:
-    installed_versions_list: "{{ asdf_list_installed_result.stdout_lines | map('trim') | list }}"
+    installed_versions_list: >-
+      {{ asdf_list_installed_result.stdout_lines
+         | map('trim')
+         | map('replace', '*', '')
+         | list }}
+
 
 - name: get latest
   ansible.builtin.command: "asdf latest {{ item.0.name }}"
@@ -27,7 +32,7 @@
 - name: check is_latest
   set_fact:
     is_latest: "{{ latest in installed_versions_list }}"
-
+    
 - name: "Check if {{ item.0.name }} version {{ item.1 }} is installed"
   ansible.builtin.set_fact:
     version_installed: "{{( item.1 in ( installed_versions_list | trim ) or is_latest )}}"

@@ -9,7 +9,6 @@ asdf_bin: "{{ asdf_bin_dir }}/asdf"
 
 
 asdf_config_file: "{{ asdf_dir }}/.asdfrc"
-asdf_default_tool_versions_file: "{{ asdf_dir }}/.tool-versions"
 asdf_legacy_version_file: no
 
 asdf_plugins:

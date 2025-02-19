@@ -22,9 +22,6 @@ esac
 export ASDF_DATA_DIR="{{ asdf_dir }}"
 export ASDF_CONFIG_FILE="{{ asdf_config_file }}"
 
-# Add asdf binary path
-export PATH="{{ asdf_bin_dir }}:$PATH"
-
 if [[ -f $ASDF_DATA_DIR/asdf.sh ]]; then
   source "$ASDF_DATA_DIR/asdf.sh"
   

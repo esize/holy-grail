@@ -22,21 +22,6 @@
   become: true
   become_user: "{{ asdf_user }}"
 
-- name: "Deploy asdf shell initialization scripts"
-  ansible.builtin.template:
-    src: "{{ item.src }}"
-    dest: "{{ asdf_dir }}/shell/{{ item.dest }}"
-    mode: '0644'
-    owner: "{{ asdf_user }}"
-    group: "{{ asdf_group }}"
-  loop:
-    - { src: 'asdf.sh.j2', dest: 'asdf.sh' }
-    - { src: 'asdf.zsh.j2', dest: 'asdf.zsh', when: is_zsh_default }
-    - { src: 'asdf.bash.j2', dest: 'asdf.bash', when: is_bash_default }
-  when: "item.when | default(true)"
-  become: true
-  become_user: "{{ asdf_user }}"
-
 - name: "Configure shell rc files"
   ansible.builtin.blockinfile:
     path: "{{ item.path }}"
@@ -45,37 +30,12 @@
     owner: "{{ asdf_user }}"
     group: "{{ asdf_group }}"
     marker: "# {mark} ANSIBLE MANAGED BLOCK - ASDF CONFIG"
-    block: "{{ item.block }}"
   loop:
     - path: "{{ user_home }}/.zshrc"
-      block: |
-        # asdf configuration
-        export ASDF_DATA_DIR="{{ asdf_dir }}"
-        export ASDF_CONFIG_FILE="{{ asdf_config_file }}"
-        export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="{{ asdf_default_tool_versions_file }}"
-        
-        # Add asdf binary path
-        path+="{{ asdf_bin_dir }}"
-        
-        # Source asdf shell integration
-        if [[ -f {{ asdf_dir }}/shell/asdf.zsh ]]; then
-          source {{ asdf_dir }}/shell/asdf.zsh
-        fi
+      src: asdf.zsh.j2
       when: is_zsh_default
     - path: "{{ user_home }}/.bashrc"
-      block: |
-        # asdf configuration
-        export ASDF_DATA_DIR="{{ asdf_dir }}"
-        export ASDF_CONFIG_FILE="{{ asdf_config_file }}"
-        export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="{{ asdf_default_tool_versions_file }}"
-        
-        # Add asdf binary path
-        export PATH="{{ asdf_bin_dir }}:$PATH"
-        
-        # Source asdf shell integration
-        if [ -f {{ asdf_dir }}/shell/asdf.bash ]; then
-          source {{ asdf_dir }}/shell/asdf.bash
-        fi
+      src: asdf.
       when: is_bash_default
   when: "item.when | default(true)"
   become: true
@@ -84,7 +44,7 @@
 - name: "Create tool-versions file"
   ansible.builtin.template:
     src: tool-versions.j2
-    dest: "{{ asdf_default_tool_versions_file }}"
+    dest: "{{ asdf_dir }}/.tool-versions"
     mode: '0644'
     owner: "{{ asdf_user }}"
     group: "{{ asdf_group }}"

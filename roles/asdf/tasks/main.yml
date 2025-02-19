@@ -4,7 +4,6 @@
     asdf_shell_env:
       ASDF_DATA_DIR: "{{ asdf_dir }}"
       ASDF_CONFIG_FILE: "{{ asdf_config_file }}"
-      ASDF_DEFAULT_TOOL_VERSIONS_FILENAME: "{{ asdf_default_tool_versions_file }}"
       PATH: "{{ asdf_dir }}/shims:{{ asdf_bin_dir }}:/usr/local/bin:/usr/bin:/bin"
 
 - name: "install asdf"
