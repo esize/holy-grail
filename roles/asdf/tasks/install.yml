@@ -31,7 +31,7 @@
   become: true
 
 - name: get current asdf version
-  shell: asdf -v
+  shell: asdf version
   environment: "{{ asdf_shell_env }}"
   changed_when: false
   register: raw_asdf_version
@@ -72,16 +72,14 @@
       path: "{{ asdf_dir }}/asdf-{{ asdf_version }}-linux-amd64.tar.gz"
       state: absent
 
-  - name: update asdf version
-    become: yes
-    become_user: "{{ asdf_user }}"
-    shell: asdf --version
-    environment: "{{ asdf_shell_env }}"
-    register: asdf_version_output
-    changed_when: false
-    failed_when: asdf_version_output.rc != 0
+- name: update asdf version
+  shell: asdf version
+  environment: "{{ asdf_shell_env }}"
+  register: asdf_version_output
+  changed_when: false
+  failed_when: asdf_version_output.rc != 0
 
-  - name: Set asdf_current_version fact
-    set_fact:
-      asdf_current_version: "{{ asdf_version_output.stdout | trim }}"
+- name: Set asdf_current_version fact
+  set_fact:
+    asdf_current_version: "{{ asdf_version_output.stdout | trim }}"
 

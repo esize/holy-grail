@@ -18,6 +18,7 @@
     - users
     - asdf
     - neovim
+    - posh
 
 # - hosts: all
 #   become: true

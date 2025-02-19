@@ -35,20 +35,20 @@
       - exim4-config
       - nano
 
-- name: packages | system | oh my posh
-  become: yes
-  block:
-    - name: Ensure curl is installed
-      package:
-        name: curl
-        state: present
+# - name: packages | system | oh my posh
+#   become: yes
+#   block:
+#     - name: Ensure curl is installed
+#       package:
+#         name: curl
+#         state: present
 
-    - name: Check if Oh My Posh is already installed
-      command: which oh-my-posh
-      register: oh_my_posh_installed
-      ignore_errors: yes
+#     - name: Check if Oh My Posh is already installed
+#       command: which oh-my-posh
+#       register: oh_my_posh_installed
+#       ignore_errors: yes
 
 
-    - name: Install Oh My Posh if not already installed
-      shell: curl -s https://ohmyposh.dev/install.sh | bash -s
-      when: oh_my_posh_installed.rc != 0
+#     - name: Install Oh My Posh if not already installed
+#       shell: curl -s https://ohmyposh.dev/install.sh | bash -s
+#       when: oh_my_posh_installed.rc != 0

@@ -19,8 +19,8 @@ esac
 # pnpm end
 
 # asdf configuration
-export ASDF_DATA_DIR="{{ asdf_dir }}"
-export ASDF_CONFIG_FILE="{{ asdf_config_file }}"
+export ASDF_DATA_DIR="/home/evan/.asdf"
+export ASDF_CONFIG_FILE="/home/evan/.asdf/.asdfrc"
 
 if [[ -f $ASDF_DATA_DIR/asdf.sh ]]; then
   source "$ASDF_DATA_DIR/asdf.sh"

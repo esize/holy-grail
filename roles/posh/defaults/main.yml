@@ -1,0 +1,3 @@
+install_dir: "{{ ansible_env.HOME }}/bin"
+themes_dir: "{{ ansible_env.HOME }}/.poshthemes"
+version: "latest"
