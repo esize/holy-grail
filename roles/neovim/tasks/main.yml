@@ -36,14 +36,12 @@
     pkg:
       - build-essential
 
-- name: Check npm version
-  command: npm --version
-  register: npm_version
+- name: Install typescript
+  npm:
+    name: typescript
+    global: yes
+  environment: "{{ asdf_shell_env }}"
   ignore_errors: true
-
-- debug:
-    var: npm_version
-
 
 - name: dotfiles | neovim | ensure Neovim plugins are installed using Lazy.nvim
   become: yes

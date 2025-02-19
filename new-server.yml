@@ -17,7 +17,7 @@
     - ssh
     - users
     - asdf
-#     - neovim
+    - neovim
 
 # - hosts: all
 #   become: true
