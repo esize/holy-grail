@@ -12,11 +12,10 @@
   connection: ssh
   tags: base
   roles:
-    # - users
-    # - dotfiles
-    # - ssh
-    # - docker
-    # - package-managers
+    - users
+    - dotfiles
+    - ssh
+    - docker
     - asdf
-    # - packages
-    # - neovim
+    - packages
+    - neovim

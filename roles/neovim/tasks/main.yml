@@ -36,10 +36,14 @@
     pkg:
       - build-essential
 
-- name: dotfiles | neovim | install typescript
-  community.general.npm:
-    name: typescript
-    global: true
+- name: Check npm version
+  command: npm --version
+  register: npm_version
+  ignore_errors: true
+
+- debug:
+    var: npm_version
+
 
 - name: dotfiles | neovim | ensure Neovim plugins are installed using Lazy.nvim
   become: yes
