@@ -9,12 +9,13 @@
 
 - name: Set installation directory
   set_fact:
-    install_dir: "{{ install_dir | default(ansible_env.HOME + '/bin') }}"
+    install_dir: "{{ install_dir | default(ansible_env.HOME + '/.local/bin') }}"
 
 - name: Check if oh-my-posh is already installed
   command: which oh-my-posh
   register: posh_installed
   ignore_errors: true
+  changed_when: false
 
 - name: Determine install directory if oh-my-posh is installed
   set_fact:
@@ -29,35 +30,10 @@
 
 - name: Download oh-my-posh executable
   get_url:
-    url: "https://cdn.ohmyposh.dev/releases/{{ version }}/linux-{{ ansible_architecture }}"
+    url: "https://cdn.ohmyposh.dev/releases/{{ version }}/posh-linux-amd64"
     dest: "{{ install_dir }}/oh-my-posh"
     mode: '0755'
   when: posh_installed.rc != 0
-
-- name: Create themes directory
-  file:
-    path: "{{ themes_dir }}"
-    state: directory
-    mode: '0755'
-
-- name: Download themes
-  get_url:
-    url: "https://cdn.ohmyposh.dev/releases/latest/themes.zip"
-    dest: "{{ themes_dir }}/themes.zip"
-
-- name: Unzip themes
-  unarchive:
-    src: "{{ themes_dir }}/themes.zip"
-    dest: "{{ themes_dir }}"
-    remote_src: yes
-    extra_opts: [ "--strip-components=1" ]
-  when: posh_installed.rc != 0
-
-- name: Set permissions for themes
-  file:
-    path: "{{ themes_dir }}"
-    mode: '0755'
-    recurse: yes
 
 - name: Add install_dir to PATH
   lineinfile:
