@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+# Global tool versions for asdf
+{% for plugin in asdf_plugins %}
+{% if plugin.global is defined %}
+{{ plugin.name }} {{ plugin.global }}
+{% endif %}
+{% endfor %}

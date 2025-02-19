@@ -1,0 +1,38 @@
+asdf_data_dir: /opt/asdf
+asdf_become: yes
+asdf_bashrc: |
+  export ASDF_DATA_DIR={{ asdf_data_dir }}
+  . /opt/asdf/asdf.sh
+asdf_plugins:
+  - name: "nodejs"
+    repository: ""
+    versions:
+      - 22.14.0
+    global: 22.14.0
+  - name: "neovim"
+    repository: ""
+    versions:
+      - stable
+    global: stable
+  - name: "bat"
+    repository: ""
+    versions:
+      - 0.25.0
+    global: 0.25.0
+  - name: "zoxide"
+    repository: "https://github.com/nyrst/asdf-zoxide.git"
+    versions:
+      - latest
+    global: latest
+  - name: "eza"
+    repository: "https://github.com/lwiechec/asdf-eza.git"
+    versions:
+      - latest
+    global: latest
+  - name: "ripgrep"
+    repository: "https://github.com/alk-adong/asdf-ripgrep.git"
+    versions:
+      - latest
+    global: latest
+
+asdf_version: 0.16.2

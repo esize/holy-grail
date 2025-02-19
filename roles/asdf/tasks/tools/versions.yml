@@ -1,0 +1,40 @@
+---
+- name: "Get list of installed versions of {{ item.0.name }}"
+  ansible.builtin.command: "asdf list {{ item.0.name }}"
+  environment: "{{ asdf_shell_env }}"
+  become: true
+  become_user: "{{ asdf_user }}"
+  register: asdf_list_installed_result
+  changed_when: false
+  failed_when: false
+
+- name: installed list
+  set_fact:
+    installed_versions_list: "{{ asdf_list_installed_result.stdout_lines | map('trim') | list }}"
+
+- name: get latest
+  ansible.builtin.command: "asdf latest {{ item.0.name }}"
+  environment: "{{ asdf_shell_env }}"
+  become: true
+  become_user: "{{ asdf_user }}"
+  register: asdf_latest_result
+  changed_when: false
+
+- name: set latest
+  set_fact:
+    latest: "{{( asdf_latest_result.stdout_lines | map('trim')).0 }}"
+
+- name: check is_latest
+  set_fact:
+    is_latest: "{{ latest in installed_versions_list }}"
+
+- name: "Check if {{ item.0.name }} version {{ item.1 }} is installed"
+  ansible.builtin.set_fact:
+    version_installed: "{{( item.1 in ( installed_versions_list | trim ) or is_latest )}}"
+
+- name: "Install tool version {{ item.1 }}"
+  ansible.builtin.command: "asdf install {{ item.0.name }} {{ item.1 }}"
+  environment: "{{ asdf_shell_env }}"
+  become: true
+  become_user: "{{ asdf_user }}"
+  when: not version_installed

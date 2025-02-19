@@ -1,0 +1,16 @@
+---
+- name: "Install asdf plugins"
+  include_tasks: plugins.yml
+  loop: "{{ asdf_plugins }}"
+  when:
+    - asdf_plugins | length > 0
+    - item.name is defined
+
+- name: "Install tool versions"
+  include_tasks: versions.yml
+  with_subelements:
+    - "{{ asdf_plugins }}"
+    - versions
+    - flags:
+        skip_missing: true
+  when: asdf_plugins | length > 0

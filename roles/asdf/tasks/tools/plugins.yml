@@ -1,0 +1,12 @@
+---
+- name: "Check if plugin is installed"
+  ansible.builtin.stat:
+    path: "{{ asdf_dir }}/plugins/{{ item.name }}"
+  register: plugin_check
+
+- name: "Add asdf plugin"
+  ansible.builtin.command: "asdf plugin add {{ item.name }} {{ item.repository | default('') }}"
+  environment: "{{ asdf_shell_env }}"
+  become: true
+  become_user: "{{ asdf_user }}"
+  when: not plugin_check.stat.exists

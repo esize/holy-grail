@@ -51,6 +51,7 @@
       when: figurine_ver is version('1.2.0', '>')
     
     - name: ssh | figurine | Extract figurine download into install path
+      become: true
       unarchive:
         remote_src: true
         src: "{{ figurine_gh_url }}/{{ figurine_pkg_path }}"
@@ -63,12 +64,14 @@
 
 ## configurine
 - name: ssh | figurine | configure login
+  become: true
   template:
     src: figurine.sh.j2
     dest: /etc/update-motd.d/05-figurine
     mode: u+rwx,g+rx,o+rx
 
 - name: ssh | figurine | remove other motd files
+  become: true
   file:
     path: "/etc/update-motd.d/{{item}}"
     mode: -x
