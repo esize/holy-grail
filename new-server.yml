@@ -20,10 +20,10 @@
     - neovim
     - posh
 
-# - hosts: all
-#   become: true
-#   vars:
-#     docker_users:
-#       - evan
-#   roles:
-#     - docker
+- hosts: all
+  become: true
+  vars:
+    docker_users:
+      - evan
+  roles:
+    - docker
