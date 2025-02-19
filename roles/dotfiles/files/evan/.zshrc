@@ -26,5 +26,5 @@ if [[ -f $ASDF_DATA_DIR/asdf.sh ]]; then
   source "$ASDF_DATA_DIR/asdf.sh"
   
   # Initialize shims in PATH
-  export PATH="${ASDF_DATA_DIR}/shims:$PATH"
+  export PATH="$ASDF_DATA_DIR/shims:$PATH"
 fi

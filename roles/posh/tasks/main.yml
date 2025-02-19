@@ -29,7 +29,7 @@
 
 - name: Download oh-my-posh executable
   get_url:
-    url: "https://cdn.ohmyposh.dev/releases/{{ version }}/posh-{{ ansible_architecture }}"
+    url: "https://cdn.ohmyposh.dev/releases/{{ version }}/linux-{{ ansible_architecture }}"
     dest: "{{ install_dir }}/oh-my-posh"
     mode: '0755'
   when: posh_installed.rc != 0
