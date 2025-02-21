@@ -7,3 +7,5 @@ all:
       ansible_host: 192.168.254.88
     dock:
       ansible_host: 192.168.254.179
+    media:
+      ansible_host: 192.168.254.90

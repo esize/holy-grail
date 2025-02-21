@@ -21,10 +21,4 @@ esac
 # asdf configuration
 export ASDF_DATA_DIR="/home/evan/.asdf"
 export ASDF_CONFIG_FILE="/home/evan/.asdf/.asdfrc"
-
-if [[ -f $ASDF_DATA_DIR/asdf.sh ]]; then
-  source "$ASDF_DATA_DIR/asdf.sh"
-  
-  # Initialize shims in PATH
-  export PATH="$ASDF_DATA_DIR/shims:$PATH"
-fi
+export PATH="$ASDF_DATA_DIR/shims:$PATH"

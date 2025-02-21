@@ -48,8 +48,7 @@
   become: yes
   become_flags: -i
   become_user: evan
+  environment: "{{ asdf_shell_env }}"
   shell: >
     nvim --headless "+Lazy! sync" +qa
-  args:
-    executable: /bin/bash
   changed_when: false
