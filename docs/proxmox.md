@@ -195,7 +195,7 @@ Further configuration is done via the Proxmox web interface. Point your browser 
 SSH into your Proxmox server. Login as `root` using the password you setup during installation.
 
 ```shell
-ssh root@192.168.254.10
+ssh root@192.168.254.24
 ```
 
 Install the necessary tools for customizing virtual images
@@ -219,37 +219,37 @@ virt-customize -a noble-server-cloudimg-amd64.img --firstboot-install "qemu-gues
 Create a new virtual machine
 
 ```shell
-qm create 8000 --memory 4096 --core 1 --name ubuntu-cloud --net0 virtio,bridge=vmbr0
+qm create 999 --memory 4096 --core 2 --name ubuntu-cloud --net0 virtio,bridge=vmbr0
 ```
 
 Import the downloaded Ubuntu disk to local-lvm storage
 
 ```shell
-qm importdisk 8000 noble-server-cloudimg-amd64.img pool1
+qm importdisk 999 noble-server-cloudimg-amd64.img pool1
 ```
 
 Attach the new disk to the vm as a scsi drive on the scsi controller
 
 ```shell
-qm set 8000 --scsihw virtio-scsi-pci --scsi0 pool1:vm-8000-disk-0
+qm set 999 --scsihw virtio-scsi-pci --scsi0 pool1:vm-8000-disk-0
 ```
 
 Add cloud init drive
 
 ```shell
-qm set 8000 --ide2 pool1:cloudinit
+qm set 999 --ide2 pool1:cloudinit
 ```
 
 Make the cloud init drive bootable and restrict BIOS to boot from disk only
 
 ```shell
-qm set 8000 --boot c --bootdisk scsi0
+qm set 999 --boot c --bootdisk scsi0
 ```
 
 Add serial console
 
 ```shell
-qm set 8000 --serial0 socket --vga serial0
+qm set 999 --serial0 socket --vga serial0
 ```
 
 **Do not start your VM!**
