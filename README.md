@@ -1,5 +1,5 @@
 # holy-grail
 
-![A renaissance style painting of the holy grail with the chalice replaced with a glowing linux terminal](https://th.bing.com/th/id/OIG.EqXyG..iyWp2dDL23Jwm?pid=ImgGn)
+<img width="1376" height="768" alt="nano-banana-2-kn7bffnjbwmk8s4fmprbvaysmd86vdw7" src="https://github.com/user-attachments/assets/acc55059-d5ae-41c8-8aff-48cd7f978bfd" />
 
 All the homelab documentation you could possibly need!
